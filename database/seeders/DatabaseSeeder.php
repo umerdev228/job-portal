@@ -15,11 +15,34 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-         \App\Models\User::factory()->create([
-             'name' => 'Admin',
-             'email' => 'admin@mail.com',
-             'password' => Hash::make(123456789),
-             'role' => 'admin',
-         ]);
+        /*Admin*/
+        \App\Models\User::create([
+            'first_name' => 'Super',
+            'last_name' => 'Admin',
+            'email' => 'admin@mail.com',
+            'password' => Hash::make(123456789),
+            'role' => 'admin',
+            'image' => '/images/default.png',
+        ]);
+
+        /*Provider*/
+        \App\Models\User::create([
+            'first_name' => 'Job',
+            'last_name' => 'Provider',
+            'email' => 'provider@mail.com',
+            'password' => Hash::make(123456789),
+            'role' => 'provider',
+            'image' => '/images/default.png',
+        ]);
+
+        /*Seeker*/
+        \App\Models\User::create([
+            'first_name' => 'Job',
+            'last_name' => 'Seeker',
+            'email' => 'seeker@mail.com',
+            'password' => Hash::make(123456789),
+            'role' => 'seeker',
+            'image' => '/images/default.png',
+        ]);
     }
 }
