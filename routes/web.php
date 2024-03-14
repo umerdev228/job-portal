@@ -25,26 +25,29 @@ Route::get('/', function () {
     ]);
 });
 
+Route::middleware('auth')->group(function () {
 
-Route::group(['prefix'=>'admin','as'=>'admin.'], function() {
-    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+//Route::group(['prefix'=>'admin','as'=>'admin.'], function() {
+//    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+//    Route::resource('roles', \App\Http\Controllers\Admin\RoleController::class);
+//
+//});
+
+
+
+//Route::group(['prefix'=>'provider','as'=>'provider.'], function() {
+//    Route::get('/dashboard', [\App\Http\Controllers\Provider\DashboardController::class, 'index'])->name('dashboard');
+//
+//});
+//
+//
+//
+//Route::group(['prefix'=>'seeker','as'=>'seeker.'], function() {
+//    Route::get('/dashboard', [\App\Http\Controllers\Seeker\DashboardController::class, 'index'])->name('dashboard');
+//
+//});
 
 });
-
-
-
-Route::group(['prefix'=>'provider','as'=>'provider.'], function() {
-    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
-
-});
-
-
-
-Route::group(['prefix'=>'seeker','as'=>'seeker.'], function() {
-    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
-
-});
-
 
 
 Route::get('/dashboard', function () {

@@ -9,6 +9,8 @@ class Skill extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'status'];
+
     const STATUS_ACTIVE = 'active';
     const STATUS_DEACTIVE = 'deactive';
 

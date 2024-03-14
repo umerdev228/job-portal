@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // \App\Models\User::factory(10)->create();
+         \App\Models\Skill::factory(10)->create();
+         \App\Models\Category::factory(10)->create();
 
         /*Admin*/
         \App\Models\User::create([
@@ -43,6 +45,10 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make(123456789),
             'role' => 'seeker',
             'image' => '/images/default.png',
+        ]);
+
+        $this->call([
+            RoleSeeder::class
         ]);
     }
 }
