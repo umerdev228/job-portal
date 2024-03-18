@@ -13,18 +13,10 @@ return new class extends Migration
     {
         Schema::create('seeker_profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('age');
+            $table->integer('user_id');
             $table->string('gender');
-            $table->string('fname');
-            $table->date('date_of_birth')->nullable();
-            $table->integer('phone');
-            $table->string('address');
-            $table->string('postal_code');
-            $table->string('city');
-            $table->string('country');
-            $table->string('skill');
-            $table->integer('experience');
+            $table->date('dob')->nullable(); //date of birth
+            $table->string('phone');
             $table->timestamps();
         });
     }

@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\SeekerProfile;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -38,13 +40,19 @@ class DatabaseSeeder extends Seeder
         ]);
 
         /*Seeker*/
-        \App\Models\User::create([
+        $seeker = \App\Models\User::create([
             'first_name' => 'Job',
             'last_name' => 'Seeker',
             'email' => 'seeker@mail.com',
             'password' => Hash::make(123456789),
             'role' => 'seeker',
             'image' => '/images/default.png',
+        ]);
+        SeekerProfile::create([
+           'user_id' =>  $seeker->id,
+           'gender' =>  'male',
+           'dob' =>  Carbon::parse('1-1-2000'),
+           'phone' =>  '+9212345678',
         ]);
 
         $this->call([

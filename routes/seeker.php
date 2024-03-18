@@ -17,3 +17,5 @@ use Inertia\Inertia;
 */
 
 Route::get('/dashboard', [\App\Http\Controllers\Seeker\DashboardController::class, 'index'])->name('dashboard');
+Route::get('/profile', [\App\Http\Controllers\Seeker\ProfileController::class, 'index'])->name('profile.index');
+Route::post('/profile', [\App\Http\Controllers\Seeker\ProfileController::class, 'update'])->name('profile.update');

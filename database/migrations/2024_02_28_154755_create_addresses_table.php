@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('postal_code');
             $table->string('city_id');
             $table->string('country_id');
-            $table->integer('phone');
             $table->timestamps();
         });
     }
