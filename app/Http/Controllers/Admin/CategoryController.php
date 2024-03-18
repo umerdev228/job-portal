@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admin/Category/Create');
     }
 
     /**
@@ -33,7 +33,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create([
+            'title'=>$request->title,
+            'status'=>$request->status
+        ]);
+        return to_route('admin.categories.index');
     }
 
     /**
@@ -47,24 +51,32 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        //
+        return Inertia::render('Admin/Category/Edit',[
+            'category'=>$category
+        ]);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $category->title = $request->title;
+        $category->status = $request->status;
+        $category->save();
+        return to_route('admin.categories.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        //
+
+        $category->delete();
+        return to_route('admin.categories.index');
     }
 }

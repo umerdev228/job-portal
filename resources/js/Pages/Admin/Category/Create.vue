@@ -11,7 +11,7 @@ const props = defineProps({
 });
 
 const form = useForm({
-    name: '',
+    title: '',
     status: '',
 });
 
@@ -19,10 +19,10 @@ const form = useForm({
 </script>
 
 <template>
-    <Head title="Create Roles | Jobs Hub"/>
+    <Head title="Create Categories | Jobs Hub"/>
     <AdminLayout :auth="auth">
         <h1 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
-            Roles
+            Categories
         </h1>
 
 
@@ -42,9 +42,9 @@ const form = useForm({
                             <path d="m1 9 4-4-4-4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                   stroke-width="2"/>
                         </svg>
-                        <Link :href="route('admin.roles.index')"
+                        <Link :href="route('admin.categories.index')"
                             class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
-                            href="">Roles
+                            href="">Categories
                         </Link>
                     </div>
                 </li>
@@ -66,21 +66,21 @@ const form = useForm({
 
 
         <form enctype="multipart/form-data"
-              @submit.prevent="form.post(route('inspiration.store'))">
+              @submit.prevent="form.post(route('admin.categories.store'))">
 
             <div class="grid grid-cols-1 sm:grid-cols-1">
 
                 <div class="mb-6">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="name">Name</label>
-                    <input id="name" v-model="form.name"
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="title">Name</label>
+                    <input id="title" v-model="form.title"
                            aria-describedby="user_avatar_help"
                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                           name="name" placeholder="Title" type="text">
+                           name="title" placeholder="Title" type="text">
                 </div>
                 <div class="mb-6">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="status">Status</label>
-                    <select id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option selected>Choose a Status</option>
+                    <select v-model="form.status" id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="" disabled selected>Choose a Status</option>
                         <option value="active">Active</option>
                         <option value="disable">Disable</option>
                     </select>
