@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\ProviderProfile;
 use App\Models\SeekerProfile;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -30,13 +31,17 @@ class DatabaseSeeder extends Seeder
         ]);
 
         /*Provider*/
-        \App\Models\User::create([
+        $provider = \App\Models\User::create([
             'first_name' => 'Job',
             'last_name' => 'Provider',
             'email' => 'provider@mail.com',
             'password' => Hash::make(123456789),
             'role' => 'provider',
             'image' => '/images/default.png',
+        ]);
+        ProviderProfile::create([
+            'user_id' =>  $provider->id,
+            'company_name' => 'Company',
         ]);
 
         /*Seeker*/

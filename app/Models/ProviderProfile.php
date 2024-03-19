@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class ProviderProfile extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['company_name'];
 }

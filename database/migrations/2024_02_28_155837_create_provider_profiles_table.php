@@ -13,13 +13,8 @@ return new class extends Migration
     {
         Schema::create('provider_profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('phone');
-            $table->string('address');
-            $table->string('postal_code');
-            $table->string('city');
-            $table->string('country');
-
+            $table->integer('user_id');
+            $table->string('company_name');
             $table->timestamps();
         });
     }

@@ -11,7 +11,7 @@ class StoreJobRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class StoreJobRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'category_id' => ['required'],
+            'title' => ['required'],
+            'experience' => ['required'],
+            'description' => ['required'],
+            'skills' => ['required'],
         ];
     }
 }

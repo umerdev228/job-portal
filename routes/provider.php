@@ -18,3 +18,7 @@ use Inertia\Inertia;
 
 
  Route::get('/dashboard', [\App\Http\Controllers\Provider\DashboardController::class, 'index'])->name('dashboard');
+Route::get('/profile', [\App\Http\Controllers\Provider\ProfileController::class, 'index'])->name('profile.index');
+Route::post('/profile', [\App\Http\Controllers\Provider\ProfileController::class, 'update'])->name('profile.update');
+
+Route::resource('jobs', \App\Http\Controllers\Provider\JobController::class);
