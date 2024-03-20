@@ -62,10 +62,13 @@ const props = defineProps({
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th class="px-6 py-3" scope="col">
-                            Name
+                            Title
                         </th>
                         <th class="px-6 py-3" scope="col">
-                            Status
+                            Experience 
+                        </th>
+                        <th class="px-6 py-3" scope="col">
+                            Description
                         </th>
                         <th class="px-6 py-3" scope="col">
                             <span class="sr-only">Actions</span>
@@ -73,12 +76,15 @@ const props = defineProps({
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="job in Jobs" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <tr v-for="job in jobs" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" scope="row">
                             {{ job.title }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ job.status }}
+                            {{ job.experience }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ job.description }}
                         </td>
                         <td class="px-6 py-4 text-right flex">
                             <Link class="font-medium text-blue-600 dark:text-blue-500 hover:underline" :href="route('provider.jobs.edit',job.id)">

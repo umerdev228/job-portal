@@ -9,9 +9,9 @@ const props = defineProps({
         type: Object,
         default: {},
     },
-    jobs: {
-        type: Array,
-        default: [],
+    job: {
+        type: Object,
+        default: {}, 
     },
     categories: {
         type: Array,
@@ -26,21 +26,21 @@ const props = defineProps({
 
 
 const form = useForm({
-    category_id: 0,
-    title: '',
-    experience: '',
-    description: '',
-    image: '',
-    skills: [],
+    category_id: props.job.category_id || 0,
+    title: props.job.title || '',
+    experience: props.job.experience || '',
+    description: props.job.description || '',
+    image: props.job.image || '',
+    skills: props.job.skills || [],
 });
 
 </script>
 
 <template>
-    <Head title="Create Job | Jobs Hub"/>
+    <Head title="Update Job | Jobs Hub"/>
     <ProviderLayout :auth="auth">
         <h1 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
-            Jobs
+           Edit Jobs
         </h1>
 
 
@@ -48,7 +48,7 @@ const form = useForm({
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 <li class="inline-flex items-center">
                     <Link
-                        :href="route('provider.jobs.store')"
+                        :href="route('provider.dashboard')"
                         class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
                         Dashboard
                     </Link>
@@ -75,7 +75,7 @@ const form = useForm({
                         </svg>
                         <Link
                             class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
-                            href="">Create
+                            href="">{{ job.title }}
                         </Link>
                     </div>
                 </li>
@@ -84,7 +84,7 @@ const form = useForm({
 
 
         <form enctype="multipart/form-data"
-              @submit.prevent="form.post(route('provider.jobs.store'))">
+              @submit.prevent="form.put(route('provider.jobs.update',job.id))">
 
             <div class="grid grid-cols-1 sm:grid-cols-2">
                 <div class="mb-6 mx-2">
