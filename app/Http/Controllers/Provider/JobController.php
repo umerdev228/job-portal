@@ -21,11 +21,15 @@ class JobController extends Controller
      */
     public function index()
     {
+        
         $categories = Category::where('status', Category::STATUS_ACTIVE)->get();
-        $jobs = Job::latest()->get();
+        //$jobs = Job::latest()->get();
+        $jobs = Job::latest()->paginate(5);
         return Inertia::render('Provider/Job/Index', [
             'categories' => $categories,
-            'jobs'=>$jobs,
+            'jobs' => $jobs,
+            
+
         ]);
     }
 
@@ -86,15 +90,15 @@ class JobController extends Controller
      */
     public function edit(Job $job)
     {
-       // dd($job);
+        // dd($job);
         $categories = Category::where('status', Category::STATUS_ACTIVE)->get();
         $skills = Skill::where('status', Skill::STATUS_ACTIVE)->select('id', 'title')->get();
-        return Inertia::render('Provider/Job/Edit',[
-            'job'=>$job,
+        return Inertia::render('Provider/Job/Edit', [
+            'job' => $job,
             'categories' => $categories,
             'skills' => $skills,
-            
-           
+
+
         ]);
     }
 
@@ -103,15 +107,15 @@ class JobController extends Controller
      */
     public function update(UpdateJobRequest $request, Job $job)
     {
-        
-      
+
+
         $job->update([
             'user_id' => Auth::id(),
             'category_id' => $request->category_id,
             'title' => $request->title,
             'experience' => $request->experience,
             'description' => $request->description,
-           
+
         ]);
         if (request()->file('image')) {
             $imageName = auth()->id() . '.' . request()->image->extension();
@@ -129,8 +133,8 @@ class JobController extends Controller
         }
 
         return to_route('provider.jobs.index');
-    }   
-    
+    }
+
 
     /**
      * Remove the specified resource from storage.
