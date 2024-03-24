@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Job;
 use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
+use Illuminate\Foundation\Application;
+use Inertia\Inertia;
 
 class JobController extends Controller
 {
@@ -13,7 +16,12 @@ class JobController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::where('status', Category::STATUS_ACTIVE)->limit(4)->get();
+        $jobs = Job::all();
+        return Inertia::render('Job', [
+            'categories' => $categories,
+            'jobs' => $jobs,
+        ]);
     }
 
     /**

@@ -17,4 +17,8 @@ class Job extends Model
         'description',
         'image',
     ];
+
+    const STATUS_ACTIVE = 'active';
+    const STATUS_DEACTIVE = 'deactive';
+
 }
