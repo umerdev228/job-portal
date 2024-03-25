@@ -38,4 +38,37 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::get('countries/cities', function () {
+    $response = Http::get('https://countriesnow.space/api/v0.1/countries');
+
+    foreach ($response->json()['data'] as $res) {
+        $country = \App\Models\Country::where('title', $res['country'])->first();
+        if ($country) {
+            foreach ($res['cities'] as $city) {
+                \App\Models\City::create([
+                    'title' => $city,
+                    'country_id' => $country->id,
+                ]);
+
+            }
+        }
+        else {
+            $country = \App\Models\Country::create([
+               'title' => $res['country'],
+               'iso2' => $res['iso2'],
+               'iso3' => $res['iso3'],
+            ]);
+            foreach ($res['cities'] as $city) {
+                \App\Models\City::create([
+                    'title' => $city,
+                    'country_id' => $country->id,
+                ]);
+
+            }
+        }
+    }
+    dd($response->json()['data']);
+});
+
 require __DIR__.'/auth.php';
