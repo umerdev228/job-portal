@@ -14,7 +14,9 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Category::where('status', Category::STATUS_ACTIVE)->limit(4)->get();
-        $jobs = Job::all();
+          // Fetch latest 8 jobs
+         $jobs = Job::latest()->take(8)->get();  
+          
         return Inertia::render('Home', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),

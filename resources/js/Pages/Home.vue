@@ -137,18 +137,16 @@ const truncateDescription = (description) => {
             </button>
         </div>
         <div class="grid grid-cols-4 md:grid-cols-4 gap-4">
-            <div
+            <div v-for="job in jobs"
                 class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
-                    <img alt="" class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg"/>
+                    <img alt="" class="rounded-t-lg" :src="job.image"/>
                 </a>
                 <div class="p-5">
                     <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
-                            technology acquisitions 2021</h5>
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ job.title }}</h5>
                     </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise
-                        technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ truncateDescription(job.description) }}</p>
                     <a class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                        href="#">
                         Apply Now
@@ -161,176 +159,11 @@ const truncateDescription = (description) => {
                     </a>
                 </div>
             </div>
-            <div
-                class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img alt="" class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg"/>
-                </a>
-                <div class="p-5">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
-                            technology acquisitions 2021</h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise
-                        technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                    <a class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                       href="#">
-                        Apply Now
-                        <svg aria-hidden="true" class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                             fill="none" viewBox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div
-                class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img alt="" class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg"/>
-                </a>
-                <div class="p-5">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
-                            technology acquisitions 2021</h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise
-                        technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                    <a class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                       href="#">
-                        Apply Now
-                        <svg aria-hidden="true" class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                             fill="none" viewBox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div
-                class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img alt="" class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg"/>
-                </a>
-                <div class="p-5">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
-                            technology acquisitions 2021</h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise
-                        technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                    <a class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                       href="#">
-                        Apply Now
-                        <svg aria-hidden="true" class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                             fill="none" viewBox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div
-                class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img alt="" class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg"/>
-                </a>
-                <div class="p-5">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
-                            technology acquisitions 2021</h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise
-                        technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                    <a class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                       href="#">
-                        Apply Now
-                        <svg aria-hidden="true" class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                             fill="none" viewBox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div
-                class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img alt="" class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg"/>
-                </a>
-                <div class="p-5">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
-                            technology acquisitions 2021</h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise
-                        technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                    <a class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                       href="#">
-                        Apply Now
-                        <svg aria-hidden="true" class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                             fill="none" viewBox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div
-                class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img alt="" class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg"/>
-                </a>
-                <div class="p-5">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
-                            technology acquisitions 2021</h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise
-                        technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                    <a class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                       href="#">
-                        Apply Now
-                        <svg aria-hidden="true" class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                             fill="none" viewBox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div
-                class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <img alt="" class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg"/>
-                </a>
-                <div class="p-5">
-                    <a href="#">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
-                            technology acquisitions 2021</h5>
-                    </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise
-                        technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                    <a class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                       href="#">
-                        Apply Now
-                        <svg aria-hidden="true" class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                             fill="none" viewBox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1 5h12m0 0L9 1m4 4L9 9" stroke="currentColor" stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
+            
         </div>
 
+       
+       
 
     </FrontendLayout>
 </template>

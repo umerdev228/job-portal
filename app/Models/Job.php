@@ -21,4 +21,7 @@ class Job extends Model
     const STATUS_ACTIVE = 'active';
     const STATUS_DEACTIVE = 'deactive';
 
+
+    
+
 }

@@ -60,7 +60,7 @@ class JobController extends Controller
             'description' => $request->description,
         ]);
         if (request()->file('image')) {
-            $imageName = auth()->id() . '.' . request()->image->extension();
+            $imageName =time(). auth()->id() . '.' . request()->image->extension();
             request()->image->move(public_path('images/jobs/'), $imageName);
             $job->image = '/images/jobs/' . $imageName;
             $job->save();
@@ -118,7 +118,7 @@ class JobController extends Controller
 
         ]);
         if (request()->file('image')) {
-            $imageName = auth()->id() . '.' . request()->image->extension();
+            $imageName =time(). auth()->id() . '.' . request()->image->extension();
             request()->image->move(public_path('images/jobs/'), $imageName);
             $job->image = '/images/jobs/' . $imageName;
             $job->save();
