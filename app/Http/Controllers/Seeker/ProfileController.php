@@ -9,6 +9,9 @@ use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
+use App\Models\Address;
 
 class ProfileController extends Controller
 {
@@ -54,4 +57,25 @@ class ProfileController extends Controller
 
         return to_route('seeker.profile.index');
     }
+
+
+    public function updatePassword(Request $request)
+    {
+        $validated = $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', Password::defaults(), 'confirmed'],
+        ]);
+
+        $request->user()->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+        return back();
+    }
+
+
+    public function updateQualification(Request $request)
+    {
+        //
+    }
 }
+

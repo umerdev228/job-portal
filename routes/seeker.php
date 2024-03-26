@@ -19,3 +19,6 @@ use Inertia\Inertia;
 Route::get('/dashboard', [\App\Http\Controllers\Seeker\DashboardController::class, 'index'])->name('dashboard');
 Route::get('/profile', [\App\Http\Controllers\Seeker\ProfileController::class, 'index'])->name('profile.index');
 Route::post('/profile', [\App\Http\Controllers\Seeker\ProfileController::class, 'update'])->name('profile.update');
+Route::put('/profile/password', [\App\Http\Controllers\seeker\ProfileController::class, 'updatePassword'])->name('profile.password.update');
+Route::put('/profile/address', [\App\Http\Controllers\ProfileController::class, 'updateAddress'])->name('profile.address.update');
+Route::put('/profile/qualification', [\App\Http\Controllers\Seeker\ProfileController::class, 'updateQualification'])->name('profile.qualification.update');

@@ -1,8 +1,11 @@
 <script setup>
 
-import SeekerLayout from "@/Layouts/SeekerLayout.vue";
 import {Head, Link, useForm} from "@inertiajs/vue3";
-import Multiselect from 'vue-multiselect'
+import Profile from "@/Components/Seeker/Profile/Profile.vue"
+import {ref} from "vue";
+import Password from "@/Components/Seeker/Profile/Password.vue";
+import Address from "@/Components/Seeker/Profile/Address.vue";
+import SeekerLayout from "@/Layouts/SeekerLayout.vue";
 
 const props = defineProps({
     auth: {
@@ -13,36 +16,22 @@ const props = defineProps({
         type: Object,
         default: {},
     },
-    skills: {
-        type: Array,
+    address: {
+        type: Object,
         default: {},
     },
-    user_skills: {
+    countries: {
         type: Array,
-        default: {},
+        default: [],
+    },
+    
+    cities: {
+        type: Array,
+        default: [],
     },
 });
 
-
-
-const form = useForm({
-    first_name: props.auth.user.first_name,
-    last_name: props.auth.user.last_name,
-    dob: props.profile.dob,
-    phone: props.profile.phone,
-    gender: props.profile.gender,
-    image: '',
-    skills: props.user_skills,
-});
-
-const options = [
-    { name: 'Vue.js', language: 'JavaScript' },
-    { name: 'Adonis', language: 'JavaScript' },
-    { name: 'Rails', language: 'Ruby' },
-    { name: 'Sinatra', language: 'Ruby' },
-    { name: 'Laravel', language: 'PHP' },
-    { name: 'Phoenix', language: 'Elixir' }
-]
+let activeMenu = ref('Profile');
 
 </script>
 
@@ -52,8 +41,6 @@ const options = [
         <h1 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
             Profile
         </h1>
-
-
         <nav aria-label="Breadcrumb" class="flex my-4">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 <li class="inline-flex items-center">
@@ -79,78 +66,60 @@ const options = [
         </nav>
 
 
-        <form enctype="multipart/form-data"
-              @submit.prevent="form.post(route('seeker.profile.update'))">
-
-            <div class="grid grid-cols-1 sm:grid-cols-2">
-
-                <div class="mb-6 mx-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="name">First Name</label>
-                    <input id="name" v-model="form.first_name"
-                           aria-describedby="user_avatar_help"
-                           class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                           name="first_name" placeholder="Title" type="text">
-                </div>
-                <div class="mb-6 mx-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="name">Last Name</label>
-                    <input id="name" v-model="form.last_name"
-                           aria-describedby="user_avatar_help"
-                           class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                           name="last_name" placeholder="Title" type="text">
-                </div>
-
-                <div class="mb-6 mx-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="name">Date Of Birth</label>
-                    <input id="name" v-model="form.dob"
-                           aria-describedby="user_avatar_help"
-                           class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                           name="dob" placeholder="Title" type="date">
-                </div>
-                <div class="mb-6 mx-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="name">Phone</label>
-                    <input id="phone" v-model="form.phone"
-                           aria-describedby="user_avatar_help"
-                           class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                           name="phone" placeholder="Phone" type="tel">
-                </div>
 
 
-                <div class="mb-6 mx-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="status">Choose a Gender</label>
-                    <select v-model="form.gender" id="status" name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option selected>Choose a Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="none">Not to reveal</option>
-                    </select>
-                </div>
 
-                <div class="mb-6 mx-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="status">Choose a Gender</label>
-                    <multiselect v-model="form.skills" :options="skills" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Choose Skills" label="title" track-by="id" :preselect-first="true">
-                        <template slot="selection" slot-scope="{ values, search, isOpen }">
-                            <span class="multiselect__single" v-if="skills.length" v-show="!isOpen">{{ skills.length }} options selected</span>
-                        </template>
-                    </multiselect>
-                </div>
+        <div class="border-b border-gray-200 dark:border-gray-700">
+            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+                <li class="me-2">
+                    <a v-on:click="activeMenu = 'Profile'" href="javascript:void(0)" :class="activeMenu === 'Profile' ? 'text-blue-600 border-blue-600 active dark:text-blue-500 dark:border-blue-500' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'" class="inline-flex items-center justify-center p-4 group rounded-t-lg border-b-2">
+                        <svg :class="activeMenu === 'Profile' ? 'text-blue-600 dark:text-blue-500' : 'text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300'" class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>
+                        </svg>Profile
+                    </a>
+                </li>
+                <li class="me-2">
+                    <a v-on:click="activeMenu = 'Password'" href="javascript:void(0)" :class="activeMenu === 'Password' ? 'text-blue-600 border-blue-600 active dark:text-blue-500 dark:border-blue-500' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'" class="inline-flex items-center justify-center p-4 group rounded-t-lg border-b-2" aria-current="page">
+                        <svg :class="activeMenu === 'Password' ? 'text-blue-600 dark:text-blue-500' : 'text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300'" class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v3m-3-6V7a3 3 0 1 1 6 0v4m-8 0h10a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1Z"/>
+                        </svg>
 
-                <div class="mb-6 mx-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Profile Image</label>
-                    <input @input="form.image = $event.target.files[0]"
-                           class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
-                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
-                </div>
+                        Password
+                    </a>
+                </li>
+                <li class="me-2">
+                    <a v-on:click="activeMenu = 'Address'" href="javascript:void(0)" :class="activeMenu === 'Address' ? 'text-blue-600 border-blue-600 active dark:text-blue-500 dark:border-blue-500' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'" class="inline-flex items-center justify-center p-4 group rounded-t-lg border-b-2">
+                          <svg :class="activeMenu === 'Address' ? 'text-blue-600 dark:text-blue-500' : 'text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300'" class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                            <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z"/>
+                        </svg>Address
+                    </a>
+                </li>
+                <li class="me-2">
+                    <a v-on:click="activeMenu = 'Qualification'" href="javascript:void(0)" :class="activeMenu === 'Qualification' ? 'text-blue-600 border-blue-600 active dark:text-blue-500 dark:border-blue-500' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'" class="inline-flex items-center justify-center p-4 group rounded-t-lg border-b-2">
+                          <svg :class="activeMenu === 'Qualification' ? 'text-blue-600 dark:text-blue-500' : 'text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300'" class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                            <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z"/>
+                        </svg>Qualification
+                    </a>
+                </li>
+                <li class="me-2">
+                    <a v-on:click="activeMenu = 'Contacts'" href="javascript:void(0)" :class="activeMenu === 'Contacts' ? 'text-blue-600 border-blue-600 active dark:text-blue-500 dark:border-blue-500' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'" class="inline-flex items-center justify-center p-4 group rounded-t-lg border-b-2">
+                        <svg :class="activeMenu === 'Contacts' ? 'text-blue-600 dark:text-blue-500' : 'text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300'" class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                            <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z"/>
+                        </svg>Contacts
+                    </a>
+                </li>
+                <li>
+                    <a class="inline-block p-4 text-gray-400 rounded-t-lg cursor-not-allowed dark:text-gray-500">Disabled</a>
+                </li>
+            </ul>
+        </div>
 
-            </div>
+        <Profile :auth="auth" v-if="activeMenu === 'Profile'"/>
+        <Password :auth="auth" v-if="activeMenu === 'Password'"/>
+        <Qualification :auth="auth" :qualification="qualification" v-if="activeMenu === 'Qualification'"/>
+        <Address :auth="auth" :address="address" :countries="countries" :cities="cities" v-if="activeMenu === 'Address'"/>
 
-            <button
-                class="text-white bg-indigo-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                type="submit">
-                Submit
-            </button>
-        </form>
-
-    </SeekerLayout>
+    </SeekerLayout >
 </template>
 
 <style scoped>
