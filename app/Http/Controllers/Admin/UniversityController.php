@@ -31,7 +31,7 @@ class UniversityController extends Controller
         $cities = City::all();
         return Inertia::render('Admin/University/Create', [
             'countries' => $countries,
-            'cities' => $cities,
+            'cities' => $cities, 
         ]);
     }
 
@@ -62,24 +62,31 @@ class UniversityController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(University $university)
     {
-        //
+        return Inertia::render('Admin/University/Edit',[
+            'university'=>$university
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, University $university)
     {
-        //
+        $university->title = $request->title;
+        $university->country_id =$request->country_id;
+        $university->city_id = $request->city_id;
+        $university->save();
+        return to_route('admin.universities.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(University $university)
     {
-        //
+     $university->delete();
+     return to_route('admin.universities.index');   
     }
 }

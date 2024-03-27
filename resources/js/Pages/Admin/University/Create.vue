@@ -59,7 +59,7 @@ function filterCities() {
                         </svg>
                         <Link :href="route('admin.universities.index')"
                             class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
-                            href="">Universitys
+                            href="">Universities
                         </Link>
                     </div>
                 </li>
@@ -81,7 +81,7 @@ function filterCities() {
 
 
         <form enctype="multipart/form-data"
-              @submit.prevent="form.post(route('admin.universitys.store'))">
+              @submit.prevent="form.post(route('admin.universities.store'))">
 
             <div class="grid grid-cols-1 sm:grid-cols-1">
 
