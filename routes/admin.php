@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,5 @@ Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class
 Route::resource('roles', \App\Http\Controllers\Admin\RoleController::class);
 Route::resource('skills', \App\Http\Controllers\Admin\SkillController::class);
 Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
+Route::resource('universities',\App\Http\Controllers\Admin\UniversityController::class);
+Route::resource('degrees',\App\Http\Controllers\Admin\DegreeController::class);
