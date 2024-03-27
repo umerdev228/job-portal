@@ -25,3 +25,5 @@ Route::resource('skills', \App\Http\Controllers\Admin\SkillController::class);
 Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
 Route::resource('universities',\App\Http\Controllers\Admin\UniversityController::class);
 Route::resource('degrees',\App\Http\Controllers\Admin\DegreeController::class);
+Route::resource('countries',\App\Http\Controllers\Admin\CountryController::class);
+Route::resource('cities',\App\Http\Controllers\Admin\CityController::class);
