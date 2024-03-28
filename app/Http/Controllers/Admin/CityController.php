@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,8 +15,8 @@ class CityController extends Controller
      */
     public function index()
     {
-       // return Inertia::render('Admin/City/Index');
-        $cities =City::latest()->take(10)->get();
+      
+        $cities =City::all();
         return Inertia::render('Admin/City/Index',[
             'cities'=>$cities
         ]);
@@ -27,7 +28,10 @@ class CityController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/City/Create');
+        $countries=Country::all();
+        return Inertia::render('Admin/City/Create',[
+            'countries'=>$countries
+        ]);
     }
 
     /**
@@ -37,7 +41,7 @@ class CityController extends Controller
     {
         City::Create([
             'title'=>$request->title,
-            'country_id' => 0,
+            'country_id'=>$request->country_id,
         ]);
         return to_route('admin.cities.index');
     }

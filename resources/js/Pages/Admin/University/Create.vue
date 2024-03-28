@@ -1,6 +1,5 @@
 <script setup>
-import {Link, Head, useForm} from '@inertiajs/vue3';
-
+import {Link, Head, useForm } from '@inertiajs/vue3';
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { ref } from 'vue';
 
@@ -21,11 +20,15 @@ const props = defineProps({
 });
 let citiesFiltered = ref([]);
 
+
 const form = useForm({
     title: '',
-    country_id: 0,
-    city_id: 0,
+    country_id: '',
+    city_id: '',
 });
+
+
+
 
 function filterCities() {
     citiesFiltered.value = props.cities.filter(city => city.country_id === form.country_id)

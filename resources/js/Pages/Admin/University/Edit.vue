@@ -27,12 +27,12 @@ let citiesFiltered = ref([]);
 
 const form = useForm({
     title: props.university.title,
-    country_id: props.university.country_id,
+    country_id:props.university.country_id,
     city_id:props.university.city_id,
 });
 
 function filterCities() {
-    citiesFiltered.value = props.cities.filter(city => city.country_id === form.country_id)
+    citiesFiltered.value = props.cities.filter(city => city.country_id === form.country_id);
 }
 </script>
 
@@ -97,9 +97,10 @@ function filterCities() {
                 </div>
                 <div class="mb-6">
                     <label for="country_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select Country</label>
-                    <select v-on:change="filterCities()" v-model="form.country_id" id="country_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select v-on:change="filterCities()" v-model="form.country_id"  id="country_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected value="0">Choose a Country</option>
                         <option v-for="country in countries" :value="country.id">{{ country.title }}</option>
+
                     </select>
                 </div>
                 <div class="mb-6">
@@ -107,6 +108,7 @@ function filterCities() {
                     <select v-model="form.city_id" id="city_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected value="0">Choose a City</option>
                         <option v-for="city in citiesFiltered" :value="city.id">{{ city.title }}</option>
+
                     </select>
                 </div>
             </div>

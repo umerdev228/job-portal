@@ -28,7 +28,7 @@ class UniversityController extends Controller
     public function create()
     {
         $countries = Country::all();
-        $cities = City::all();
+       $cities = City::all();
         return Inertia::render('Admin/University/Create', [
             'countries' => $countries,
             'cities' => $cities, 
@@ -42,12 +42,11 @@ class UniversityController extends Controller
     {
         University::create([
             'title'=>$request->title,
-            'city_id' => 0,
-             'country_id' => 0,
+            'city_id' =>$request->city_id,
+             'country_id' =>$request->country_id,
         ]);
-        $countries = Country::all();
-        $cities = City::all();
-        return to_route('admin.universities.index');
+       
+       return to_route('admin.universities.index');
     }
 
 
@@ -64,8 +63,12 @@ class UniversityController extends Controller
      */
     public function edit(University $university)
     {
+        $countries = Country::all();
+      $cities =City::all();
         return Inertia::render('Admin/University/Edit',[
-            'university'=>$university
+            'university'=>$university,
+            'countries' => $countries,
+            'cities' => $cities, 
         ]);
     }
 

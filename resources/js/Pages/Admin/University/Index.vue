@@ -66,10 +66,10 @@ const props = defineProps({
                             Name
                         </th>
                         <th class="px-6 py-3" scope="col">
-                            Country
+                            Country_id
                         </th>
                         <th class="px-6 py-3" scope="col">
-                            City
+                            City_id
                         </th>
                         <th class="px-6 py-3" scope="col">
                             <span class="sr-only">Actions</span>
@@ -82,10 +82,10 @@ const props = defineProps({
                             {{ university.title }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ university.country }}
+                            {{ university.country_id }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ university.city }}
+                            {{ university.city_id }}
                         </td>
                         <td class="px-6 py-4 text-right flex">
                             <Link class="font-medium text-blue-600 dark:text-blue-500 hover:underline" :href="route('admin.universities.edit', university.id)" >
