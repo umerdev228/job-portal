@@ -59,8 +59,10 @@ class CityController extends Controller
      */
     public function edit(City $city)
     {
+        $countries = Country::all();
         return Inertia::render('Admin/City/Edit',[
-          'city'=>$city
+          'city'=>$city,
+          'countries' => $countries,
         ]);
     }
 

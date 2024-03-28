@@ -28,11 +28,12 @@ class UniversityController extends Controller
     public function create()
     {
         $countries = Country::all();
-       $cities = City::all();
+         $cities = City::all();
         return Inertia::render('Admin/University/Create', [
             'countries' => $countries,
             'cities' => $cities, 
         ]);
+       
     }
 
     /**
@@ -70,6 +71,7 @@ class UniversityController extends Controller
             'countries' => $countries,
             'cities' => $cities, 
         ]);
+       
     }
 
     /**

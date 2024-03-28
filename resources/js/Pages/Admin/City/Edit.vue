@@ -1,7 +1,7 @@
 <script setup>
 import {Link, Head, useForm} from '@inertiajs/vue3';
-
 import AdminLayout from "@/Layouts/AdminLayout.vue";
+import { ref } from 'vue';
 
 const props = defineProps({
     auth: {
@@ -18,12 +18,16 @@ const props = defineProps({
     },
 });
 
+let citiesFiltered = ref([]);
+
 const form = useForm({
     title: props.city.title,
     country_id: props.city.country_id,
    
 });
-
+function filterCities() {
+    citiesFiltered.value = props.cities.filter(city => city.country_id === form.country_id);
+}
 
 </script>
 
