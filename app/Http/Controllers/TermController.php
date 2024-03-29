@@ -2,25 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SeekerProfile;
-use App\Http\Requests\StoreSeekerProfileRequest;
-use App\Http\Requests\UpdateSeekerProfileRequest;
-use App\Models\User;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class SeekerProfileController extends Controller
+class TermController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::where('role', 'seeker')->paginate(12);
-        //dd($users);
-        return Inertia::render('Talent/Index', [
-            'users' => $users,
-        ]);
-       
+        return Inertia::render('Term/Index');
     }
 
     /**
@@ -34,7 +26,7 @@ class SeekerProfileController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSeekerProfileRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -42,7 +34,7 @@ class SeekerProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SeekerProfile $seekerProfile)
+    public function show(string $id)
     {
         //
     }
@@ -50,7 +42,7 @@ class SeekerProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SeekerProfile $seekerProfile)
+    public function edit(string $id)
     {
         //
     }
@@ -58,7 +50,7 @@ class SeekerProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSeekerProfileRequest $request, SeekerProfile $seekerProfile)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -66,7 +58,7 @@ class SeekerProfileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SeekerProfile $seekerProfile)
+    public function destroy(string $id)
     {
         //
     }

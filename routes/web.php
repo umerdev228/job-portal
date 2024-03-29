@@ -21,6 +21,9 @@ Route::get('/jobs', [\App\Http\Controllers\JobController::class, 'index'])->name
 Route::get('/jobs/{job}', [\App\Http\Controllers\JobController::class, 'show'])->name('jobs.show');
 
 Route::get('/talents', [\App\Http\Controllers\SeekerProfileController::class, 'index'])->name('talents.index');
+Route::get('/about',[App\Http\Controllers\AboutController::class,'index'])->name('about.index');
+Route::get('/term',[\App\Http\Controllers\TermController::class,'index'])->name('term.index');
+
 
 //Route::get('/', function () {
 //    return Inertia::render('Welcome', [

@@ -17,6 +17,10 @@ const props = defineProps({
         type: Array,
         required: true,
     },
+    job: {
+        type: Array,
+        required: true,
+    },
 
 });
 
