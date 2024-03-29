@@ -18,6 +18,9 @@ use Inertia\Inertia;
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/jobs', [\App\Http\Controllers\JobController::class, 'index'])->name('jobs.index');
+Route::get('/jobs/{job}', [\App\Http\Controllers\JobController::class, 'show'])->name('jobs.show');
+
+Route::get('/talents', [\App\Http\Controllers\SeekerProfileController::class, 'index'])->name('talents.index');
 
 //Route::get('/', function () {
 //    return Inertia::render('Welcome', [

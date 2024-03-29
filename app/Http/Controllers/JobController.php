@@ -21,12 +21,10 @@ class JobController extends Controller
         $categories = Category::where('status', Category::STATUS_ACTIVE)->limit(4)->get();
         $jobs =Job::latest()->paginate(8);
 
-        return Inertia::render('Job', [
+        return Inertia::render('Job/Index', [
             'categories' => $categories,
             'jobs' => $jobs,
         ]);
-
-        
     }
 
     /**
@@ -50,7 +48,9 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
-        //
+        return Inertia::render('Job/Show', [
+            'job' => $job,
+        ]);
     }
 
     /**

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\SeekerProfile;
 use App\Http\Requests\StoreSeekerProfileRequest;
 use App\Http\Requests\UpdateSeekerProfileRequest;
+use App\Models\User;
+use Inertia\Inertia;
 
 class SeekerProfileController extends Controller
 {
@@ -13,7 +15,10 @@ class SeekerProfileController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::where('role', 'seeker')->get();
+        return Inertia::render('Talent/Index', [
+            'users' => $users,
+        ]);
     }
 
     /**

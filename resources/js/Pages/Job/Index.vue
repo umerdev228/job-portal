@@ -1,13 +1,14 @@
 <script setup>
 import {Head} from '@inertiajs/vue3';
 import FrontendLayout from "@/Layouts/FrontendLayout.vue";
+import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     auth: {
         type: Object,
         default: {},
     },
-    
+
     jobs: {
         type: Array,
         required: true,
@@ -16,7 +17,7 @@ const props = defineProps({
         type: Array,
         required: true,
     },
-  
+
 });
 
 const truncateDescription = (description) => {
@@ -35,37 +36,26 @@ const truncateDescription = (description) => {
 
 
 
-        <div class="flex justify-between border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14 p-4">
+        <div class="flex justify-between border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 my-4 p-4">
             <h1 class="text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl ">
                 Jobs
             </h1>
         </div>
-        <div class="flex items-center justify-end py-4 md:py-8 flex-wrap">
-            <button
-                class="text-blue-700 hover:text-white border border-blue-600 bg-white hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:bg-gray-900 dark:focus:ring-blue-800"
-                type="button">
-                All categories
-            </button>
-            <button v-for="category in categories"
-                    class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800"
-                    type="button">
-                {{ category.title }}
-            </button>
-        </div>
-        
-            
+
+
+
         <div class="grid grid-cols-4 md:grid-cols-4 gap-4">
             <div v-for="job in jobs.data"
                 class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
+                <Link :href="route('jobs.show', job.id)">
                     <img alt="" class="rounded-t-lg" :src="job.image"/>
-                </a>
+                </Link>
                 <div class="p-5">
-                    <a href="#">
+                    <Link :href="route('jobs.show', job.id)">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ job.title }}</h5>
-                    </a>
+                    </Link>
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{truncateDescription(job.description)}}</p>
-                    <a class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    <Link class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                        href="#">
                         Apply Now
                         <svg aria-hidden="true" class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
@@ -74,20 +64,20 @@ const truncateDescription = (description) => {
                                   stroke-linejoin="round"
                                   stroke-width="2"/>
                         </svg>
-                    </a>
+                    </Link>
                 </div>
             </div>
-            
+
         </div>
-       
+
          <!-- Pagination Section -->
 <div class="mt-6 text-black">
     <Component
-        :is="link.url ? 'Link' : 'span'" 
-        v-for="link in jobs.links" 
+        :is="link.url ? 'Link' : 'span'"
+        v-for="link in jobs.links"
         :href="link.url"
-        v-html="link.label" 
-        class="px-1" 
+        v-html="link.label"
+        class="px-1"
         :class="{'text-gray-500': !link.url, 'font-bold': link.active}"
     />
 </div>
