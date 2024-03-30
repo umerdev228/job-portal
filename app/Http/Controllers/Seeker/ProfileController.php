@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Seeker;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Country;
+use App\Models\Degree;
+use App\Models\Qualification;
 use App\Models\SeekerProfile;
 use App\Models\SeekerSkill;
 use App\Models\Skill;
+use App\Models\University;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -27,6 +30,9 @@ class ProfileController extends Controller
         $user_skills = Skill::where('status', Skill::STATUS_ACTIVE)->select('id', 'title')->whereIn('id', $user_skills)->get();
         $countries = Country::all();
         $cities = City::all();
+        $universities = University::all();
+        $degrees = Degree::all();
+        $qualifications = Qualification::where('user_id', auth()->id())->get();
 
         return Inertia::render('Seeker/Profile/Index', [
             'profile' => $profile,
@@ -35,6 +41,9 @@ class ProfileController extends Controller
             'countries' => $countries,
             'cities' => $cities,
             'address' => $address,
+            'universities' => $universities,
+            'degrees' => $degrees,
+            'qualifications' => $qualifications,
         ]);
     }
 

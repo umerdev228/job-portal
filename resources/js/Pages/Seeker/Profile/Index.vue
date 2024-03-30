@@ -6,6 +6,7 @@ import {ref} from "vue";
 import Password from "@/Components/Seeker/Profile/Password.vue";
 import Address from "@/Components/Seeker/Profile/Address.vue";
 import SeekerLayout from "@/Layouts/SeekerLayout.vue";
+import Qualification from "@/Components/Seeker/Profile/Qualification.vue";
 
 const props = defineProps({
     auth: {
@@ -29,6 +30,18 @@ const props = defineProps({
         default: [],
     },
     cities: {
+        type: Array,
+        default: [],
+    },
+    universities: {
+        type: Array,
+        default: [],
+    },
+    degrees: {
+        type: Array,
+        default: [],
+    },
+    qualifications: {
         type: Array,
         default: [],
     },
@@ -119,7 +132,7 @@ let activeMenu = ref('Profile');
 
         <Profile :auth="auth" v-if="activeMenu === 'Profile'" :skills="skills" :profile="profile"/>
         <Password :auth="auth" v-if="activeMenu === 'Password'"/>
-        <Qualification :auth="auth" :qualification="qualification" v-if="activeMenu === 'Qualification'"/>
+        <Qualification :auth="auth" :qualifications="qualifications" :universities="universities" :degrees="degrees" v-if="activeMenu === 'Qualification'"/>
         <Address :auth="auth" :address="address" :countries="countries" :cities="cities" v-if="activeMenu === 'Address'"/>
 
     </SeekerLayout >

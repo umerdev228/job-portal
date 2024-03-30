@@ -71,28 +71,28 @@ const form = useForm({
 
             <div class="grid grid-cols-1 sm:grid-cols-1">
 
-                <div class="mb-6">
+                <div class="mb-6 mx-2">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="title">Name</label>
                     <input id="title" v-model="form.title"
                            aria-describedby="user_avatar_help"
                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                            name="title" placeholder="Title" type="text">
                 </div>
-                <div class="mb-6">
+                <div class="mb-6 mx-2">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="iso2">Iso2</label>
                     <input id="iso2" v-model="form.iso2"
                            aria-describedby="user_avatar_help"
                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                            name="iso2" placeholder="Iso2" type="text">
                 </div>
-                <div class="mb-6">
+                <div class="mb-6 mx-2">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="iso3">Iso3</label>
                     <input id="iso3" v-model="form.iso3"
                            aria-describedby="user_avatar_help"
                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                            name="iso3" placeholder="Iso3" type="text">
                 </div>
-                
+
             </div>
 
             <button

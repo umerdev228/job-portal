@@ -62,7 +62,7 @@ const form = useForm({
                         </svg>
                         <Link :href="route('provider.jobs.index')"
                             class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
-                            href="">Jobs 
+                            href="">Jobs
                         </Link>
                     </div>
                 </li>
@@ -94,7 +94,7 @@ const form = useForm({
                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                            name="title" placeholder="Title" type="text">
                 </div>
-                <div class="mb-6">
+                <div class="mb-6 mx-2">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="category_id">Choose Category</label>
                     <select v-model="form.category_id" id="category_id" name="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="0" disabled selected>Choose a Category</option>
