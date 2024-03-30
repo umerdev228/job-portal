@@ -21,13 +21,14 @@ const props = defineProps({
         default: [],
     },
 });
+
 let citiesFiltered = ref([]);
 
 const form = useForm({
-    country_id: 0,
-    city_id: 0,
-    address: '',
-    postal_code: '',
+    country_id: props.address.country_id,
+    city_id: props.address.city_id,
+    address: props.address.address,
+    postal_code: props.address.postal_code,
 });
 
 const updatePassword = () => {

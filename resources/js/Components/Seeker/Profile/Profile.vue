@@ -1,5 +1,6 @@
 <script setup>
 import {useForm} from "@inertiajs/vue3";
+import Multiselect from 'vue-multiselect'
 
 const props = defineProps({
     auth: {
@@ -12,15 +13,13 @@ const props = defineProps({
     },
     skills: {
         type: Array,
-        default: {},
+        default: [],
     },
     user_skills: {
         type: Array,
-        default: {},
+        default: [],
     },
 });
-
-
 
 const form = useForm({
     first_name: props.auth.user.first_name,
@@ -31,15 +30,6 @@ const form = useForm({
     image: '',
     skills: props.user_skills,
 });
-
-const options = [
-    { name: 'Vue.js', language: 'JavaScript' },
-    { name: 'Adonis', language: 'JavaScript' },
-    { name: 'Rails', language: 'Ruby' },
-    { name: 'Sinatra', language: 'Ruby' },
-    { name: 'Laravel', language: 'PHP' },
-    { name: 'Phoenix', language: 'Elixir' }
-]
 
 </script>
 

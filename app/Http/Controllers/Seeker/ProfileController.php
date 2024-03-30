@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Seeker;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
+use App\Models\Country;
 use App\Models\SeekerProfile;
 use App\Models\SeekerSkill;
 use App\Models\Skill;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Hash;
@@ -20,12 +23,18 @@ class ProfileController extends Controller
         $profile = SeekerProfile::where('user_id', auth()->id())->first();
         $skills = Skill::where('status', Skill::STATUS_ACTIVE)->select('id', 'title')->get();
         $user_skills = SeekerSkill::where('user_id', auth()->id())->get()->pluck('id')->toArray();
+        $address = Address::where('user_id', auth()->id())->first();
         $user_skills = Skill::where('status', Skill::STATUS_ACTIVE)->select('id', 'title')->whereIn('id', $user_skills)->get();
+        $countries = Country::all();
+        $cities = City::all();
 
         return Inertia::render('Seeker/Profile/Index', [
             'profile' => $profile,
             'skills' => $skills,
             'user_skills' => $user_skills,
+            'countries' => $countries,
+            'cities' => $cities,
+            'address' => $address,
         ]);
     }
 
@@ -43,7 +52,7 @@ class ProfileController extends Controller
         }
         $profile = SeekerProfile::where('user_id', auth()->id())->first();
         $profile->gender = request()->gender;
-        $profile->dob = request()->dob;
+        $profile->dob = Carbon::parse(request()->dob);
         $profile->phone = request()->phone;
         $profile->save();
 
@@ -68,6 +77,20 @@ class ProfileController extends Controller
 
         $request->user()->update([
             'password' => Hash::make($validated['password']),
+        ]);
+        return back();
+    }
+
+    public function updateAddress(Request $request)
+    {
+        $address = Address::firstOrCreate([
+            'user_id' => auth()->id()
+        ], [
+            'address' => $request->address,
+            'postal_code' => $request->postal_code,
+            'city_id' => $request->city_id,
+            'country_id' => $request->country_id,
+
         ]);
         return back();
     }
