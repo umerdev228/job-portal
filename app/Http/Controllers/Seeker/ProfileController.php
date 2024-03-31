@@ -104,10 +104,27 @@ class ProfileController extends Controller
         return back();
     }
 
+  
 
     public function updateQualification(Request $request)
     {
-        //
+        $qualification = Qualification::with('university', 'degree')->get();
+      
+        dd($qualification);
+
+        $qualifications = Qualification::firstOrCreate([
+            'user_id'=>auth()->id()
+        ],  [
+            'university_id'=>$request->university_id,
+            'degree_id'=>$request->degree_id,
+            'from'=>$request->from,
+            'to'=>$request->to,
+
+
+        ]);
+       
+        return back();
     }
+
 }
 

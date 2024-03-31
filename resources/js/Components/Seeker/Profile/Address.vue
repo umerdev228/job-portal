@@ -49,7 +49,7 @@ function filterCities() {
 <template>
     <div class="mt-10">
         <form enctype="multipart/form-data"
-              @submit.prevent="updatePassword">
+              @submit.prevent="updateAddress">
 
             <div class="grid grid-cols-1 sm:grid-cols-2">
                 <div class="mb-6 mx-2">

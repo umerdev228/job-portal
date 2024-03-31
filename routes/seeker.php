@@ -22,3 +22,4 @@ Route::post('/profile', [\App\Http\Controllers\Seeker\ProfileController::class, 
 Route::put('/profile/password', [\App\Http\Controllers\Seeker\ProfileController::class, 'updatePassword'])->name('profile.password.update');
 Route::put('/profile/address', [\App\Http\Controllers\Seeker\ProfileController::class, 'updateAddress'])->name('profile.address.update');
 Route::put('/profile/qualification', [\App\Http\Controllers\Seeker\ProfileController::class, 'updateQualification'])->name('profile.qualification.update');
+

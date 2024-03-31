@@ -59,6 +59,13 @@ class DatabaseSeeder extends Seeder
            'dob' =>  Carbon::parse('1-1-2000'),
            'phone' =>  '+9212345678',
         ]);
+        \App\Models\Address::create([
+            'user_id' => $seeker->id,
+            'postal_code' => '62020',
+            'address' => '123 Main Street, Anytown, USA 12345',
+            'city_id' => '1',
+            'country_id' => '1',
+        ]);
 
         $this->call([
             RoleSeeder::class

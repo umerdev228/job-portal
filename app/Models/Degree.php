@@ -9,4 +9,9 @@ class Degree extends Model
 {
     use HasFactory;
     protected $fillable = ['title'];
+
+    // public function qualification()
+    // {
+    //     return $this->hasMany('App\Models\Qualification');
+    // }
 }

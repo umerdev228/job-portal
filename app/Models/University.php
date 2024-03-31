@@ -9,4 +9,9 @@ class University extends Model
 {
     use HasFactory;
     protected $fillable = ['title','country_id','city_id'];
+
+    // public function qualification()
+    // {
+    //     return $this->hasMany('App\Models\Qualification');
+    // }
 }
