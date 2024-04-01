@@ -102,15 +102,10 @@ class ProfileController extends Controller
 
         ]);
         return back();
-    }
-
-  
+    }  
 
     public function updateQualification(Request $request)
     {
-        $qualification = Qualification::with('university', 'degree')->get();
-      
-        dd($qualification);
 
         $qualifications = Qualification::firstOrCreate([
             'user_id'=>auth()->id()
@@ -122,8 +117,9 @@ class ProfileController extends Controller
 
 
         ]);
-       
-        return back();
+        $qualifications = Qualification::with('university', 'degree')->get();
+        return to_route('seeker.profile.index', compact('qualifications'));
+        //return back();
     }
 
 }

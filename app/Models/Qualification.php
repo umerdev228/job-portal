@@ -20,8 +20,6 @@ class Qualification extends Model
     {
         return $this->belongsTo(University::class);
     }
-
-    // Define the many-to-one relationship with Degree
     public function degree()
     {
         return $this->belongsTo(Degree::class);
