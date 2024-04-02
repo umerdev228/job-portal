@@ -9,5 +9,5 @@ class ProviderProfile extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['company_name'];
+    protected $fillable = ['user_id', 'company_name'];
 }

@@ -46,7 +46,19 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    protected $with = ['seeker', 'provider'];
+
     const ROLE_ADMIN = 'admin';
     const ROLE_SEEKER = 'seeker';
     const ROLE_PROVIDER = 'provider';
+
+    public function seeker()
+    {
+        return $this->belongsTo(SeekerProfile::class, 'id', 'user_id');
+    }
+
+    public function provider()
+    {
+        return $this->belongsTo(ProviderProfile::class, 'id', 'user_id');
+    }
 }

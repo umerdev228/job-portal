@@ -7,6 +7,7 @@ use App\Models\Job;
 use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 
@@ -75,5 +76,10 @@ class JobController extends Controller
     public function destroy(Job $job)
     {
         //
+    }
+
+    public function apply(Job $job)
+    {
+
     }
 }

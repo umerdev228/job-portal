@@ -15,4 +15,11 @@ class SeekerProfile extends Model
         'dob',
         'phone',
     ];
+
+    protected $with = ['skills'];
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class, 'seeker_skills', 'user_id', 'skill_id', 'user_id');
+    }
+
 }

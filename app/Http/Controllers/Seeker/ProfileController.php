@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Seeker;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Degree;
@@ -14,10 +15,9 @@ use App\Models\University;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
-use App\Models\Address;
+use Inertia\Inertia;
 
 class ProfileController extends Controller
 {
@@ -102,20 +102,17 @@ class ProfileController extends Controller
 
         ]);
         return back();
-    }  
+    }
 
     public function updateQualification(Request $request)
     {
 
-        $qualifications = Qualification::firstOrCreate([
-            'user_id'=>auth()->id()
-        ],  [
-            'university_id'=>$request->university_id,
-            'degree_id'=>$request->degree_id,
-            'from'=>$request->from,
-            'to'=>$request->to,
-
-
+        $qualifications = Qualification::create([
+            'user_id' => auth()->id(),
+            'university_id' => $request->university_id,
+            'degree_id' => $request->degree_id,
+            'from' => $request->from,
+            'to' => $request->to,
         ]);
         $qualifications = Qualification::with('university', 'degree')->get();
         return to_route('seeker.profile.index', compact('qualifications'));

@@ -18,6 +18,8 @@ class Job extends Model
         'image',
     ];
 
+    protected $with = ['skills'];
+
     const STATUS_ACTIVE = 'active';
     const STATUS_DEACTIVE = 'deactive';
 

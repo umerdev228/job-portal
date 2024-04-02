@@ -7,8 +7,6 @@ const props = defineProps({
         default: {},
     },
 });
-
-console.log(props.auth.user)
 </script>
 
 <template>
