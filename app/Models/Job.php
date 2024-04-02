@@ -21,7 +21,9 @@ class Job extends Model
     const STATUS_ACTIVE = 'active';
     const STATUS_DEACTIVE = 'deactive';
 
-
-    
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class, 'job_skills', 'job_id', 'skill_id', 'id');
+    }
 
 }

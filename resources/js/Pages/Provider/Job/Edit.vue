@@ -21,6 +21,10 @@ const props = defineProps({
         type: Array,
         default: [],
     },
+    job_skills: {
+        type: Array,
+        default: [],
+    },
 });
 
 
@@ -31,7 +35,7 @@ const form = useForm({
     experience: props.job.experience || '',
     description: props.job.description || '',
     image: props.job.image || '',
-    skills: props.job.skills || [],
+    skills: props.job_skills || [],
 });
 
 </script>

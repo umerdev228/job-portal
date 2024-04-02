@@ -45,6 +45,10 @@ const props = defineProps({
         type: Array,
         default: [],
     },
+    user_skills: {
+        type: Array,
+        default: [],
+    },
 });
 
 let activeMenu = ref('Profile');
@@ -130,7 +134,7 @@ let activeMenu = ref('Profile');
             </ul>
         </div>
 
-        <Profile :auth="auth" v-if="activeMenu === 'Profile'" :skills="skills" :profile="profile"/>
+        <Profile :auth="auth" v-if="activeMenu === 'Profile'" :skills="skills" :profile="profile" :user_skills="user_skills"/>
         <Password :auth="auth" v-if="activeMenu === 'Password'"/>
         <Qualification :auth="auth" :qualifications="qualifications" :universities="universities" :degrees="degrees" v-if="activeMenu === 'Qualification'"/>
         <Address :auth="auth" :address="address" :countries="countries" :cities="cities" v-if="activeMenu === 'Address'"/>

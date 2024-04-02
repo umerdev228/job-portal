@@ -43,6 +43,14 @@ class DatabaseSeeder extends Seeder
             'user_id' =>  $provider->id,
             'company_name' => 'Company',
         ]);
+        \App\Models\Address::create([
+            'user_id' => $provider->id,
+            'postal_code' => '62020',
+            'address' => '123 Main Street, Anytown, USA 12345',
+            'city_id' => '1',
+            'country_id' => '1',
+        ]);
+
 
         /*Seeker*/
         $seeker = \App\Models\User::create([

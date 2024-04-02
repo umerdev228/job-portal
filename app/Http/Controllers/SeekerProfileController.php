@@ -20,7 +20,7 @@ class SeekerProfileController extends Controller
         return Inertia::render('Talent/Index', [
             'users' => $users,
         ]);
-       
+
     }
 
     /**
