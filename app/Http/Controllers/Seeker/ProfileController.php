@@ -118,8 +118,8 @@ class ProfileController extends Controller
 
         ]);
         $qualifications = Qualification::with('university', 'degree')->get();
-        return to_route('seeker.profile.index', compact('qualifications'));
-        //return back();
+         return $qualifications;
+        return back();
     }
 
 }

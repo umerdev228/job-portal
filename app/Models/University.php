@@ -12,6 +12,6 @@ class University extends Model
 
     public function qualification()
     {
-        return $this->hasMany(Qualification::class);
+        return $this->belongsTo(Qualification::class);
     }
 }

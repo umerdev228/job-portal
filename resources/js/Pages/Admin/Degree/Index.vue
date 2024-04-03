@@ -70,7 +70,7 @@ const props = defineProps({
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="degree in degrees" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <tr v-for="degree in degrees.data" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" scope="row">
                             {{ degree.title }}
                         </th>
@@ -91,7 +91,18 @@ const props = defineProps({
                     </tbody>
                 </table>
             </div>
+            <div class="mt-6 text-white">
+        <Component
+	     :is="link.url ? Link : 'span'"
 
+          v-for="link in degrees.links" 
+          :href="link.url" 
+          v-html="link.label" 
+          class="px-1" 
+          :class="{'text-gray-500': !link.url,'font-bold':link.active}"
+        />
+          
+        </div>
 
         </div>
 

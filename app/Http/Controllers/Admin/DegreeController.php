@@ -14,7 +14,7 @@ class DegreeController extends Controller
      */
     public function index()
     {
-        $degrees = Degree::all();
+        $degrees = Degree::paginate(5);
         return Inertia::render('Admin/Degree/Index',[
          'degrees' => $degrees
         ]);

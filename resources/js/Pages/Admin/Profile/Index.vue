@@ -1,12 +1,10 @@
 <script setup>
 
 import {Head, Link, useForm} from "@inertiajs/vue3";
-import Profile from "@/Components/Seeker/Profile/Profile.vue"
+import AdminLayout from "@/Layouts/AdminLayout.vue";
+import Profile from "@/Components/Admin/Profile/Profile.vue";
 import {ref} from "vue";
-import Password from "@/Components/Seeker/Profile/Password.vue";
-import Address from "@/Components/Seeker/Profile/Address.vue";
-import SeekerLayout from "@/Layouts/SeekerLayout.vue";
-import Qualification from "@/Components/Seeker/Profile/Qualification.vue";
+import Password from "@/Components/Admin/Profile/Password.vue";
 
 const props = defineProps({
     auth: {
@@ -17,34 +15,7 @@ const props = defineProps({
         type: Object,
         default: {},
     },
-    address: {
-        type: Object,
-        default: {},
-    },
-    countries: {
-        type: Array,
-        default: [],
-    },
-    skills: {
-        type: Array,
-        default: [],
-    },
-    cities: {
-        type: Array,
-        default: [],
-    },
-    universities: {
-        type: Array,
-        default: [],
-    },
-    degrees: {
-        type: Array,
-        default: [],
-    },
-    qualifications: {
-        type: Array,
-        default: [],
-    },
+   
 });
 
 let activeMenu = ref('Profile');
@@ -53,7 +24,7 @@ let activeMenu = ref('Profile');
 
 <template>
     <Head title="Update Profile | Jobs Hub"/>
-    <SeekerLayout :auth="auth">
+    <AdminLayout :auth="auth">
         <h1 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
             Profile
         </h1>
@@ -61,7 +32,7 @@ let activeMenu = ref('Profile');
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 <li class="inline-flex items-center">
                     <Link
-                        :href="route('seeker.dashboard')"
+                        :href="route('admin.dashboard')"
                         class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
                         Dashboard
                     </Link>
@@ -81,10 +52,6 @@ let activeMenu = ref('Profile');
             </ol>
         </nav>
 
-
-
-
-
         <div class="border-b border-gray-200 dark:border-gray-700">
             <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                 <li class="me-2">
@@ -103,29 +70,14 @@ let activeMenu = ref('Profile');
                         Password
                     </a>
                 </li>
-                <li class="me-2">
-                    <a v-on:click="activeMenu = 'Address'" href="javascript:void(0)" :class="activeMenu === 'Address' ? 'text-blue-600 border-blue-600 active dark:text-blue-500 dark:border-blue-500' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'" class="inline-flex items-center justify-center p-4 group rounded-t-lg border-b-2">
-                          <svg :class="activeMenu === 'Address' ? 'text-blue-600 dark:text-blue-500' : 'text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300'" class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                            <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z"/>
-                        </svg>Address
-                    </a>
-                </li>
-                <li class="me-2">
-                    <a v-on:click="activeMenu = 'Qualification'" href="javascript:void(0)" :class="activeMenu === 'Qualification' ? 'text-blue-600 border-blue-600 active dark:text-blue-500 dark:border-blue-500' : 'border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'" class="inline-flex items-center justify-center p-4 group rounded-t-lg border-b-2">
-                          <svg :class="activeMenu === 'Qualification' ? 'text-blue-600 dark:text-blue-500' : 'text-gray-400 group-hover:text-gray-500 dark:text-gray-500 dark:group-hover:text-gray-300'" class="w-4 h-4 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                            <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-3 14H5a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Zm0-4H5a1 1 0 0 1 0-2h8a1 1 0 1 1 0 2Zm0-5H5a1 1 0 0 1 0-2h2V2h4v2h2a1 1 0 1 1 0 2Z"/>
-                        </svg>Qualification
-                    </a>
-                </li>
+
             </ul>
         </div>
 
-        <Profile :auth="auth" v-if="activeMenu === 'Profile'" :skills="skills" :profile="profile"/>
+        <Profile :auth="auth" v-if="activeMenu === 'Profile'"/>
         <Password :auth="auth" v-if="activeMenu === 'Password'"/>
-        <Qualification :auth="auth" :qualifications="qualifications" :universities="universities" :degrees="degrees" v-if="activeMenu === 'Qualification'"/>
-        <Address :auth="auth" :address="address" :countries="countries" :cities="cities" v-if="activeMenu === 'Address'"/>
 
-    </SeekerLayout >
+    </AdminLayout>
 </template>
 
 <style scoped>

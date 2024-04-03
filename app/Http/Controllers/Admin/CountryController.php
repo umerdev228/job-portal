@@ -14,7 +14,7 @@ class CountryController extends Controller
      */
     public function index()
     {
-        $countries =Country::all();
+        $countries =Country::paginate(5);
         return Inertia::render('Admin/Country/Index',[
             'countries'=>$countries
         ]);
