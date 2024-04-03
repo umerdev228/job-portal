@@ -15,7 +15,7 @@ class SkillController extends Controller
      */
     public function index()
     {
-        $skills = Skill::latest()->get();
+        $skills = Skill::latest()->paginate(5);
         return Inertia::render('Admin/Skill/Index', [
             'skills' => $skills
         ]);

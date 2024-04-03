@@ -16,7 +16,7 @@ class UniversityController extends Controller
      */
     public function index()
     {
-       $universities = University::all();
+       $universities = University::paginate(5);
        return Inertia::render('Admin/University/Index',[
         'universities'=>$universities
        ]);

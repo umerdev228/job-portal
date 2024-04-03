@@ -1,6 +1,7 @@
 <script setup>
 
 import {useForm} from "@inertiajs/vue3";
+import {Link} from "@inertiajs/vue3";
 
 const props = defineProps({
     auth: {
@@ -51,7 +52,8 @@ const updateQualification = () => {
                 <div class="mb-6 mx-2">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                            for="status">University</label>
-                    <select id="university_id" v-model="form.university_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    <select id="university_id" v-model="form.university_id"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             name="university_id">
                         <option disabled selected value="0">Choose a University</option>
                         <option v-for="university in universities" :value="university.id">{{
@@ -63,7 +65,8 @@ const updateQualification = () => {
                 <div class="mb-6 mx-2">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="status">Degree
                         Title</label>
-                    <select id="status" v-model="form.degree_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    <select id="status" v-model="form.degree_id"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             name="status">
                         <option disabled selected value="0">Choose a Degree</option>
                         <option v-for="degree in degrees" :value="degree.id">{{ degree.title }}</option>
@@ -144,9 +147,11 @@ const updateQualification = () => {
                             <svg aria-hidden="true" class="w-6 h-6 text-gray-800 dark:text-white"
                                  fill="none" height="24" viewBox="0 0 24 24" width="24"
                                  xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" stroke="currentColor" stroke-linecap="round"
-                                      stroke-linejoin="round"
-                                      stroke-width="2"/>
+                                <path
+                                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"
+                                    stroke="currentColor" stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"/>
                             </svg>
                         </Link>
                     </td>

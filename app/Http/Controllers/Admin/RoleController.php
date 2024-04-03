@@ -14,7 +14,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::latest()->get();
+        $roles = Role::latest()->paginate(5);
         return Inertia::render('Admin/Role/Index', [
             'roles' => $roles
         ]);
