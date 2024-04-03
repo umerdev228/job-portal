@@ -16,5 +16,15 @@ class Qualification extends Model
         'from',
         'to',
     ];
-   
+
+    public function university()
+    {
+        return $this->belongsTo(University::class, 'university_id');
+    }
+
+    public function degree()
+    {
+        return $this->belongsTo(Degree::class, 'degree_id');
+    }
+
 }

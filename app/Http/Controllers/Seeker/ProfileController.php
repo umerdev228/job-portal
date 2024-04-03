@@ -32,7 +32,7 @@ class ProfileController extends Controller
         $cities = City::all();
         $universities = University::all();
         $degrees = Degree::all();
-        $qualifications = Qualification::where('user_id', auth()->id())->get();
+        $qualifications = Qualification::where('user_id', auth()->id())->with(['university', 'degree'])->get();
 
         return Inertia::render('Seeker/Profile/Index', [
             'profile' => $profile,

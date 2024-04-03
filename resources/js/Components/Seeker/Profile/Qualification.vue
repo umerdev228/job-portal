@@ -122,10 +122,10 @@ const updateQualification = () => {
                 <tr v-for="qualification in qualifications"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" scope="row">
-                        {{ qualification.university ? qualification.university.title : 'N/A' }}
+                        {{ qualification.university.title }}
                     </th>
                     <td class="px-6 py-4">
-                        {{ qualification.degree ? qualification.degree.title : 'N/A' }}
+                        {{ qualification.degree.title }}
                     </td>
                     <td class="px-6 py-4">
                         {{ qualification.from }}
