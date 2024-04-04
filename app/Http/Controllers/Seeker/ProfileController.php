@@ -114,8 +114,6 @@ class ProfileController extends Controller
             'from' => $request->from,
             'to' => $request->to,
         ]);
-        $qualifications = Qualification::with('university', 'degree')->get();
-         return $qualifications;
         return back();
     }
 
