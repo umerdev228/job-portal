@@ -13,6 +13,7 @@ const props = defineProps({
     },
 });
 
+
 const form = useForm({
     job_id: '',
 });
@@ -50,7 +51,7 @@ function applyJob() {
                       stroke-width="2"/>
             </svg>
         </Link>
-        <button v-else
+        <button v-else-if="!auth.user && !auth.applied_jobs.find(j => j === job.id)"
                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 data-modal-target="progress-modal" data-modal-toggle="progress-modal"
                 type="button">
@@ -61,6 +62,9 @@ function applyJob() {
                       stroke-linejoin="round"
                       stroke-width="2"/>
             </svg>
+        </button>
+        <button disabled v-else class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-gray-400 dark:focus:ring-blue-800">
+            Applied
         </button>
 
         <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
