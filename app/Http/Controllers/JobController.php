@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Job;
 use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
+use App\Models\JobApply;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -80,6 +81,10 @@ class JobController extends Controller
 
     public function apply(Job $job)
     {
-
+        JobApply::create([
+            'user_id' => auth()->id(),
+            'job_id' => $job->id,
+        ]);
+        return to_route('jobs.show', $job->id);
     }
 }

@@ -1,5 +1,5 @@
 <script setup>
-import {Head, Link} from '@inertiajs/vue3';
+import {Head, Link, useForm} from '@inertiajs/vue3';
 import FrontendLayout from "@/Layouts/FrontendLayout.vue";
 
 const props = defineProps({
@@ -12,6 +12,14 @@ const props = defineProps({
         required: true,
     },
 });
+
+const form = useForm({
+    job_id: '',
+});
+
+function applyJob() {
+    form.post(route('job.apply', props.job.id));
+}
 
 </script>
 
@@ -72,7 +80,7 @@ const props = defineProps({
         </p>
 
         <!-- Main modal -->
-        <div id="progress-modal" aria-hidden="true"
+        <div v-if="auth.user" id="progress-modal" aria-hidden="true"
              class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
              tabindex="-1">
             <div class="relative p-4 w-full max-w-md max-h-full">
@@ -87,16 +95,16 @@ const props = defineProps({
 
                         <div class="w-[80%]">
                             <span v-for="skill in auth.user.seeker.skills"
-                                  class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">{{
-                                    skill.title
-                                }}</span>
+                                  class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                                {{skill.title }}
+                            </span>
                         </div>
 
 
                         <button
                             class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             data-modal-target="progress-modal" data-modal-toggle="progress-modal"
-                            type="button">
+                            type="button" v-on:click="applyJob()">
                             Apply Now
                             <svg aria-hidden="true" class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
                                  fill="none" viewBox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">

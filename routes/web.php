@@ -22,8 +22,12 @@ Route::get('/jobs/{job}', [\App\Http\Controllers\JobController::class, 'show'])-
 Route::get('/jobs/apply/{job}', [\App\Http\Controllers\JobController::class, 'apply'])->name('jobs.apply');
 
 Route::get('/talents', [\App\Http\Controllers\SeekerProfileController::class, 'index'])->name('talents.index');
-Route::get('/about',[App\Http\Controllers\AboutController::class,'index'])->name('about.index');
-Route::get('/term',[\App\Http\Controllers\TermController::class,'index'])->name('term.index');
+Route::get('/about',[App\Http\Controllers\AboutController::class, 'index'])->name('about.index');
+Route::get('/term',[\App\Http\Controllers\TermController::class, 'index'])->name('term.index');
+
+Route::middleware('auth')->group(function () {
+    Route::post('/job/apply/{job}',[\App\Http\Controllers\JobController::class, 'apply'])->name('job.apply');
+});
 
 
 //Route::get('/', function () {
