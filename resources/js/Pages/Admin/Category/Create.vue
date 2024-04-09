@@ -13,6 +13,7 @@ const props = defineProps({
 const form = useForm({
     title: '',
     status: '',
+    is_feature:'',
 });
 
 
@@ -85,6 +86,13 @@ const form = useForm({
                         <option value="disable">Disable</option>
                     </select>
                 </div>
+
+                <div class="mb-6 mx-2">
+                  <label class="flex items-center text-sm font-medium text-gray-900 dark:text-white" for="is_feature">
+                    <input id="is_feature" v-model="form.is_feature" type="checkbox" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <span class="ml-2">Feature</span>
+                   </label>
+               </div>
             </div>
 
             <button

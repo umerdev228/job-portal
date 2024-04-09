@@ -35,7 +35,8 @@ class CategoryController extends Controller
     {
         Category::create([
             'title'=>$request->title,
-            'status'=>$request->status
+            'status'=>$request->status,
+            'is_feature'=>$request->is_feature,
         ]);
         return to_route('admin.categories.index');
     }
@@ -66,6 +67,7 @@ class CategoryController extends Controller
     {
         $category->title = $request->title;
         $category->status = $request->status;
+        $category->is_feature = $request->is_feature;
         $category->save();
         return to_route('admin.categories.index');
     }

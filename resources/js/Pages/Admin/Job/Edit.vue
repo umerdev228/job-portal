@@ -1,7 +1,7 @@
 <script setup>
 
 import {Head, Link, useForm} from "@inertiajs/vue3";
-import ProviderLayout from "@/Layouts/ProviderLayout.vue";
+import AdminLayout from "@/Layouts/AdminLayout.vue";
 import Multiselect from 'vue-multiselect'
 
 const props = defineProps({
@@ -9,9 +9,9 @@ const props = defineProps({
         type: Object,
         default: {},
     },
-    jobs: {
-        type: Array,
-        default: [],
+    job: {
+        type: Object,
+        default: {},
     },
     categories: {
         type: Array,
@@ -21,26 +21,31 @@ const props = defineProps({
         type: Array,
         default: [],
     },
+    job_skills: {
+        type: Array,
+        default: [],
+    },
 });
 
 
 
 const form = useForm({
-    category_id: 0,
-    title: '',
-    experience: '',
-    description: '',
-    image: '',
-    skills: [],
+    category_id: props.job.category_id || 0,
+    title: props.job.title || '',
+    experience: props.job.experience || '',
+    description: props.job.description || '',
+    image: props.job.image || '',
+    skills: props.job_skills || [],
+    is_feature: props.job.is_feature || '',
 });
 
 </script>
 
 <template>
-    <Head title="Create Job | Jobs Hub"/>
-    <ProviderLayout :auth="auth">
+    <Head title="Update Job | Jobs Hub"/>
+    <AdminLayout :auth="auth">
         <h1 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
-            Jobs
+           Edit Jobs
         </h1>
 
 
@@ -48,7 +53,7 @@ const form = useForm({
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 <li class="inline-flex items-center">
                     <Link
-                        :href="route('provider.jobs.store')"
+                        :href="route('admin.dashboard')"
                         class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
                         Dashboard
                     </Link>
@@ -60,7 +65,7 @@ const form = useForm({
                             <path d="m1 9 4-4-4-4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                   stroke-width="2"/>
                         </svg>
-                        <Link :href="route('provider.jobs.index')"
+                        <Link :href="route('admin.jobs.index')"
                             class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
                             href="">Jobs
                         </Link>
@@ -75,7 +80,7 @@ const form = useForm({
                         </svg>
                         <Link
                             class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
-                            href="">Create
+                            href="">{{ job.title }}
                         </Link>
                     </div>
                 </li>
@@ -84,7 +89,7 @@ const form = useForm({
 
 
         <form enctype="multipart/form-data"
-              @submit.prevent="form.post(route('provider.jobs.store'))">
+              @submit.prevent="form.put(route('admin.jobs.update',job.id))">
 
             <div class="grid grid-cols-1 sm:grid-cols-2">
                 <div class="mb-6 mx-2">
@@ -133,7 +138,12 @@ const form = useForm({
                     </multiselect>
                 </div>
 
-               
+              <div class="mb-6 mx-2">
+                  <label class="flex items-center text-sm font-medium text-gray-900 dark:text-white" for="is_feature">
+                    <input id="is_feature" v-model="form.is_feature" type="checkbox" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <span class="ml-2">Feature</span>
+                   </label>
+               </div>
 
             </div>
 
@@ -144,7 +154,7 @@ const form = useForm({
             </button>
         </form>
 
-    </ProviderLayout>
+    </AdminLayout>
 </template>
 
 <style scoped>
