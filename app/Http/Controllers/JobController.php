@@ -8,20 +8,26 @@ use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
 use App\Models\JobApply;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
-
 
 class JobController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
 
         $categories = Category::where('status', Category::STATUS_ACTIVE)->limit(4)->get();
-        $jobs =Job::latest()->paginate(8);
+        $jobs = Job::query()
+            ->when(Request::input('search'), function ($query, $search) {
+                $query->where('title', 'like', "%{$search}%");
+            })
+    
+            ->latest()
+            ->paginate(8);
 
         return Inertia::render('Job/Index', [
             'categories' => $categories,

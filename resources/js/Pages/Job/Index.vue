@@ -1,6 +1,8 @@
 <script setup>
 import {Head, Link} from '@inertiajs/vue3';
 import FrontendLayout from "@/Layouts/FrontendLayout.vue";
+import {ref,watch} from 'vue';
+import { Inertia } from '@inertiajs/inertia';
 
 const props = defineProps({
     auth: {
@@ -16,12 +18,21 @@ const props = defineProps({
         type: Array,
         required: true,
     },
-    job: {
-        type: Array,
-        required: true,
-    },
+    // job: {
+    //     type: Array,
+    //     required: true,
+    // },
 
 });
+ let search =ref('');
+
+watch(search,value=>{
+  Inertia.get('jobs',{search: value},{
+    preserveState: true
+  });
+});
+
+   
 
 const truncateDescription = (description) => {
     const words = description.split(' ');
@@ -37,14 +48,26 @@ const truncateDescription = (description) => {
     <Head title="Home"/>
     <FrontendLayout :auth="auth">
 
-
+        <form class="max-w-md mx-auto">
+          
+            <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                </div>
+                <input v-model="search"  type="text"  class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Jobs..." required />
+                <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+            </div>
+        </form>
         <div
             class="flex justify-between border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 my-4 p-4">
             <h1 class="text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl ">
                 Jobs
             </h1>
+            <!-- <input v-model="search" type="text" placeholder="search..." class="border px-2 rounded lg"> -->
         </div>
-
+ 
 
         <div class="grid grid-cols-4 md:grid-cols-4 gap-4">
             <div v-for="job in jobs.data"
@@ -82,14 +105,16 @@ const truncateDescription = (description) => {
 
         <!-- Pagination Section -->
         <div class="mt-6 text-black">
-            <Component
-                :is="link.url ? 'Link' : 'span'"
-                v-for="link in jobs.links"
-                :class="{'text-gray-500': !link.url, 'font-bold': link.active}"
-                :href="link.url"
-                class="px-1"
-                v-html="link.label"
-            />
+        <Component
+	     :is="link.url ? Link : 'span'"
+
+          v-for="link in jobs.links" 
+          :href="link.url" 
+          v-html="link.label" 
+          class="px-1" 
+          :class="{'text-gray-500': !link.url,'font-bold':link.active}"
+        />
+          
         </div>
 
 
