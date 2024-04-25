@@ -24,14 +24,12 @@ class JobController extends Controller
         $jobs = Job::query()
             ->when(Request::input('search'), function ($query, $search) {
                 $query->where('title', 'like', "%{$search}%");
-            })
-    
-            ->latest()
-            ->paginate(8);
+            })->latest()->paginate(4)->withQueryString();
 
         return Inertia::render('Job/Index', [
             'categories' => $categories,
             'jobs' => $jobs,
+            'filters' => Request::input('search'),
         ]);
     }
 
