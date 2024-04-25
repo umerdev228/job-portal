@@ -1,10 +1,8 @@
 <script setup>
-import {Head} from '@inertiajs/vue3';
+import {Head, useForm} from '@inertiajs/vue3';
 import FrontendLayout from "@/Layouts/FrontendLayout.vue";
 import { Link } from '@inertiajs/vue3';
-import { Inertia } from '@inertiajs/inertia';
-import { ref } from 'vue';
-
+import { router } from '@inertiajs/vue3'
 
 defineProps({
     auth: {
@@ -33,9 +31,17 @@ defineProps({
         type: Array,
         required: true,
     },
+    category_id: {
+        type: Number,
+        required: true,
+        default: 0,
+    },
 });
 
 
+const form = useForm({
+    category_id: 0,
+});
 
 const truncateDescription = (description) => {
     const words = description.split(' ');
@@ -45,8 +51,13 @@ const truncateDescription = (description) => {
     return description;
 };
 
-
-
+function filterJob(category_id) {
+    form.category_id = category_id;
+    form.post('/', {
+        preserveState: true,
+        preserveScroll: true,
+    })
+}
 
 </script>
 
@@ -134,18 +145,17 @@ const truncateDescription = (description) => {
                 Jobs
             </h1>
         </div>
-      
+
         <div class="flex items-center justify-end py-4 md:py-8 flex-wrap">
-            <button 
-              
-                class="text-blue-700 hover:text-white border border-blue-600 bg-white hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:bg-gray-900 dark:focus:ring-blue-800"
-                type="button">
+            <button
+                :class="form.category_id === 0 ? 'bg-blue-700 text-white' : 'bg-white'"
+                class="text-blue-700 hover:text-white border border-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3"
+                type="button" v-on:click="filterJob(0)">
                 All categories
             </button>
-            <button v-for="category in categories"
-                  
-                    class="text-gray-900 border border-white hover:border-gray-200 dark:border-gray-900 dark:bg-gray-900 dark:hover:border-gray-700 bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 dark:text-white dark:focus:ring-gray-800"
-                    type="button">
+            <button v-for="category in categories" :class="form.category_id === category.id ? 'bg-blue-700 text-white' : 'bg-white'"
+                    class="text-blue-700 hover:text-white border border-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3"
+                    type="button" v-on:click="filterJob(category.id)">
                 {{ category.title }}
             </button>
         </div>

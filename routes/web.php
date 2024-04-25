@@ -16,7 +16,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::any('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/jobs', [\App\Http\Controllers\JobController::class, 'index'])->name('jobs.index');
 Route::get('/jobs/{job}', [\App\Http\Controllers\JobController::class, 'show'])->name('jobs.show');
 Route::get('/jobs/apply/{job}', [\App\Http\Controllers\JobController::class, 'apply'])->name('jobs.apply');
