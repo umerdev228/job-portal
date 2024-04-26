@@ -20,11 +20,14 @@ class JobController extends Controller
     public function index(Request $request)
     {
 
-        $categories = Category::where('status', Category::STATUS_ACTIVE)->limit(4)->get();
+        $categories = Category::where('status', Category::STATUS_APPROVED)->limit(4)->get();
         $jobs = Job::query()
-            ->when(Request::input('search'), function ($query, $search) {
+            ->when(Request::input('search'), function ($query, $search){
                 $query->where('title', 'like', "%{$search}%");
-            })->latest()->paginate(4)->withQueryString();
+            })
+            ->where('status',Job::STATUS_APPROVED)
+            ->latest()
+            ->paginate(8);
 
         return Inertia::render('Job/Index', [
             'categories' => $categories,

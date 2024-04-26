@@ -11,7 +11,8 @@ class Category extends Model
 
     protected $fillable = ['title', 'status'];
 
-    const STATUS_ACTIVE = 'active';
-    const STATUS_DEACTIVE = 'deactive';
+    const STATUS_PENDING = 'pending';
+    const STATUS_APPROVED = 'approved';
+    const STATUS_DECLINED = 'declined';
 
 }

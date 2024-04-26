@@ -34,10 +34,12 @@ const form = useForm({
     title: props.job.title || '',
     experience: props.job.experience || '',
     description: props.job.description || '',
+    status: props.job.status || '',
     image: props.job.image || '',
     skills: props.job_skills || [],
-    is_feature: props.job.is_feature || '',
+    is_feature: props.job.is_feature || false, // Initialize with false instead of ''
 });
+
 
 </script>
 
@@ -137,6 +139,36 @@ const form = useForm({
                         </template>
                     </multiselect>
                 </div>
+                <div class="mb-6 mx-2">
+                    <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">Status</h3>
+                   <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                       <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                           <div class="flex items-center ps-3">
+                               <input v-model="form.status" id="pending" type="radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" value="pending">
+                               <label class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"  for="pending">pending</label>
+                           </div>
+                       </li>
+                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                             <div class="flex items-center ps-3">
+                                <input v-model="form.status" id="approved" type="radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" value="approved">
+                                <label  class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="approved">Approved</label>
+                            </div>
+                        </li>
+                        <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                            <div class="flex items-center ps-3">
+                                <input v-model="form.status" id="closed" type="radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" value="closed">
+                                <label  class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="closed">Closed</label>
+                            </div>
+                        </li>
+                        <li class="w-full dark:border-gray-600">
+                            <div class="flex items-center ps-3">
+                                <input v-model="form.status" id="deadline" type="radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" value="deadline">
+                                <label class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="deadline" >Deadline</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
 
               <div class="mb-6 mx-2">
                   <label class="flex items-center text-sm font-medium text-gray-900 dark:text-white" for="is_feature">
