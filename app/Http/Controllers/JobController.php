@@ -22,10 +22,10 @@ class JobController extends Controller
 
         $categories = Category::where('status', Category::STATUS_ACTIVE)->limit(4)->get();
         $jobs = Job::query()
-            ->when(Request::input('search'), function ($query, $search) {
+            ->when(Request::input('search'), function ($query, $search){
                 $query->where('title', 'like', "%{$search}%");
             })
-    
+            ->where('status',Job::STATUS_APPROVED)
             ->latest()
             ->paginate(8);
 

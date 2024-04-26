@@ -14,12 +14,27 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = Category::where('is_feature', true)->where('status', Category::STATUS_ACTIVE)->limit(4)->get();
-        if (request()->method() == 'POST' && $request->category_id > 0  ) {
-            $jobs = Job::where('is_feature', true)->where('category_id', $request->category_id)->latest()->take(8)->get();
+        $categories = Category::where('is_feature', true)
+            ->where('status', Category::STATUS_ACTIVE)
+            ->limit(4)
+            ->get();
+
+        // Updated query to fetch only approved jobs
+        if (request()->method() == 'POST' && $request->category_id > 0) {
+            $jobs = Job::where('is_feature', true)
+                ->where('category_id', $request->category_id)
+                ->where('status', 'approved')
+                ->latest()
+                ->take(8)
+                ->get();
         } else {
-            $jobs = Job::where('is_feature', true)->latest()->take(8)->get();
+            $jobs = Job::where('is_feature', true)
+                ->where('status', 'approved')
+                ->latest()
+                ->take(8)
+                ->get();
         }
+
         return Inertia::render('Home', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),

@@ -71,7 +71,10 @@ const props = defineProps({
                             Description
                         </th>
                         <th class="px-6 py-3" scope="col">
-                            <span class="sr-only">Actions</span>
+                            Status
+                        </th>
+                        <th class="px-6 py-3" scope="col">
+                            Actions
                         </th>
                     </tr>
                     </thead>
@@ -85,6 +88,9 @@ const props = defineProps({
                         </td>
                         <td class="px-6 py-4">
                             {{ job.description }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ job.status }}
                         </td>
                         <td class="px-6 py-4 text-right flex">
                             <Link class="font-medium text-blue-600 dark:text-blue-500 hover:underline" :href="route('provider.jobs.edit',job.id)">

@@ -48,9 +48,18 @@ class JobController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Job $job)
     {
-        //
+        $categories = Category::where('status', Category::STATUS_ACTIVE)->get();
+        $skills = Skill::where('status', Skill::STATUS_ACTIVE)->select('id', 'title')->get();
+        return Inertia::render('Admin/Job/Show', [
+            'job' => $job,
+            'categories' => $categories,
+            'skills' => $skills,
+            'job_skills' => $job->skills,
+
+
+        ]);
     }
 
     /**
@@ -75,16 +84,17 @@ class JobController extends Controller
      */
     public function update(Request $request, Job  $job)
     {
-        
         $job->update([
             'user_id' => Auth::id(),
             'category_id' => $request->category_id,
             'title' => $request->title,
             'experience' => $request->experience,
             'description' => $request->description,
-            'is_feature'=>$request->is_feature,
+            'status' => $request->status,
+            'is_feature' => $request->is_feature,
 
         ]);
+       
         if (request()->file('image')) {
             $imageName = time() . auth()->id() . '.' . request()->image->extension();
             request()->image->move(public_path('images/jobs/'), $imageName);
@@ -113,4 +123,6 @@ class JobController extends Controller
         JobSkill::where('job_id', $job->id)->delete();
         return to_route('admin.jobs.index');
     }
+
+
 }

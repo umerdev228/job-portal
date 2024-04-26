@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Job extends Model
 {
     use HasFactory;
+    const STATUS_PENDING = 'pending';
+    const STATUS_APPROVED = 'approved';
+    const STATUS_CLOSED = 'closed';
+    const STATUS_DEADLINE = 'deadline';
+            
 
     protected $fillable = [
         'user_id',
@@ -15,6 +20,7 @@ class Job extends Model
         'title',
         'experience',
         'description',
+        'status',
         'is_feature',
         'image',
     ];
