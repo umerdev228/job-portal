@@ -59,6 +59,7 @@ function filterJob(category_id) {
     })
 }
 
+
 </script>
 
 <template>
@@ -155,7 +156,8 @@ function filterJob(category_id) {
             </button>
             <button v-for="category in categories" :class="form.category_id === category.id ? 'bg-blue-700 text-white' : 'bg-white'"
                     class="text-blue-700 hover:text-white border border-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3"
-                    type="button" v-on:click="filterJob(category.id)">
+                     type="button" v-on:click="filterJob(category.id)">
+
                 {{ category.title }}
             </button>
         </div>

@@ -15,6 +15,7 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::put('/admin/jobs/updateFeature/{id}', [\App\Http\Controllers\Admin\JobController::class, 'updateFeature'])->name('admin.jobs.updateFeature');
 
 Route::any('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::any('/jobs', [\App\Http\Controllers\JobController::class, 'index'])->name('jobs.index');

@@ -20,7 +20,7 @@ class JobController extends Controller
     public function index()
     {
 
-        $categories = Category::where('status', Category::STATUS_ACTIVE)->get();
+        $categories = Category::where('status', Category::STATUS_APPROVED)->get();
         //$jobs = Job::latest()->get();
         $jobs = Job::latest()->paginate(5);
         return Inertia::render('Provider/Job/Index', [
@@ -36,7 +36,7 @@ class JobController extends Controller
      */
     public function create()
     {
-        $categories = Category::where('status', Category::STATUS_ACTIVE)->get();
+        $categories = Category::where('status', Category::STATUS_APPROVED)->get();
         $skills = Skill::where('status', Skill::STATUS_ACTIVE)->select('id', 'title')->get();
         return Inertia::render('Provider/Job/Create', [
             'categories' => $categories,
@@ -89,7 +89,7 @@ class JobController extends Controller
      */
     public function edit(Job $job)
     {
-        $categories = Category::where('status', Category::STATUS_ACTIVE)->get();
+        $categories = Category::where('status', Category::STATUS_APPROVED)->get();
         $skills = Skill::where('status', Skill::STATUS_ACTIVE)->select('id', 'title')->get();
         return Inertia::render('Provider/Job/Edit', [
             'job' => $job,

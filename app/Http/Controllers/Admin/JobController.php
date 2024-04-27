@@ -18,7 +18,8 @@ class JobController extends Controller
      */
     public function index()
     {
-        $categories = Category::where('status', Category::STATUS_ACTIVE)->get();
+         
+        $categories = Category::where('status', Category::STATUS_APPROVED)->get();
         //$jobs = Job::latest()->get();
         $jobs = Job::latest()->paginate(5);
         return Inertia::render('Admin/Job/Index', [
@@ -50,7 +51,7 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
-        $categories = Category::where('status', Category::STATUS_ACTIVE)->get();
+        $categories = Category::where('status', Category::STATUS_APPROVED)->get();
         $skills = Skill::where('status', Skill::STATUS_ACTIVE)->select('id', 'title')->get();
         return Inertia::render('Admin/Job/Show', [
             'job' => $job,
@@ -67,7 +68,7 @@ class JobController extends Controller
      */
     public function edit(Job $job)
     {
-        $categories = Category::where('status', Category::STATUS_ACTIVE)->get();
+        $categories = Category::where('status', Category::STATUS_APPROVED)->get();
         $skills = Skill::where('status', Skill::STATUS_ACTIVE)->select('id', 'title')->get();
         return Inertia::render('Admin/Job/Edit', [
             'job' => $job,
@@ -84,6 +85,8 @@ class JobController extends Controller
      */
     public function update(Request $request, Job  $job)
     {
+        
+        
         $job->update([
             'user_id' => Auth::id(),
             'category_id' => $request->category_id,
@@ -94,6 +97,7 @@ class JobController extends Controller
             'is_feature' => $request->is_feature,
 
         ]);
+       
        
         if (request()->file('image')) {
             $imageName = time() . auth()->id() . '.' . request()->image->extension();
@@ -123,6 +127,19 @@ class JobController extends Controller
         JobSkill::where('job_id', $job->id)->delete();
         return to_route('admin.jobs.index');
     }
+
+    public function updateFeature(Request $request, $id)
+    {
+        // Validate request data if needed
+        // dd($request->all());
+        $job = Job::findOrFail($id);
+        $job->update([
+            'is_feature' => $request->is_feature
+        ]);
+        
+         return to_route('admin.jobs.index');
+    }
+
 
 
 }

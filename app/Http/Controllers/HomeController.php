@@ -19,7 +19,7 @@ class HomeController extends Controller
 
         if (request()->method() == 'POST' && $request->category_id > 0) {
             $jobs = Job::where('is_feature', true)->where('category_id', $request->category_id)
-                ->where('status', Job::STATUS_PENDING)->latest()->take(8)->get();
+                ->where('status', Job::STATUS_APPROVED)->latest()->take(8)->get();
         } else {
             $jobs = Job::where('is_feature', true)->where('status', Job::STATUS_APPROVED)->latest()->take(8)->get();
         }

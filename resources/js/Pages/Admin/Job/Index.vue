@@ -18,11 +18,11 @@ const props = defineProps({
     job: {
         type: Object,
         default: {},
-    }
-   
-    
+    },
+  
 });
- 
+
+
 const truncateDescription = (description) => {
     const words = description.split(' ');
     if (words.length > 10) {
@@ -32,26 +32,14 @@ const truncateDescription = (description) => {
 };
 
 
-// Function to toggle the is_feature status
-const toggleIsFeature = async (jobId) => {
-    try {
-        // Send a request to update the is_feature status
-        const response = await Inertia.put(route('admin.jobs.update',jobId));
 
-        // Handle success response
-        if (response.ok) {
-            // Update the UI or fetch updated data
-            // For simplicity, you can reload the page
-            location.reload();
-        } else {
-            // Handle error response
-            console.error('Failed to update is_feature status');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
+const toggleFeature = (jobId, newValue) => {
+    // Send an Inertia request to update the is_feature value
+    Inertia.put(route('admin.jobs.updateFeature', jobId), {
+        is_feature: newValue,
+    });
+    
 };
-
 
 
 </script>
@@ -128,8 +116,7 @@ const toggleIsFeature = async (jobId) => {
                             {{ job.title }}
                         </th>
                         <td class="px-6 py-4">
-                            <!-- {{ job.is_feature }} -->
-                            {{ job.is_feature ? '1' : '0' }}
+                            {{ job.is_feature  }}
                         </td>
                         <td class="px-6 py-4">
                             {{ job.experience }}
@@ -141,12 +128,11 @@ const toggleIsFeature = async (jobId) => {
                             {{ job.status }}
                         </td>
                         <td class="px-6 py-4">
-                            <label class="inline-flex items-center cursor-pointer">
-                              <input type="checkbox" v-model="job.is_feature" v-on:change="toggleIsFeature(job.id)" :checked="job.is_feature"  class="sr-only peer">
-                              <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                              <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300"> feature</span>
+                            <label  class="inline-flex items-center cursor-pointer" >
+                                <input v-model="job.is_feature"  type="checkbox" class="sr-only peer" v-on:change="toggleFeature(job.id,job.is_feature)">
+                                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                             </label>
-                        </td>
+                        </td>                     
             
 
                         <td class="px-6 py-4 text-right flex">

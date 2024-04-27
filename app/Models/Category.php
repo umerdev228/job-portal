@@ -14,5 +14,6 @@ class Category extends Model
     const STATUS_PENDING = 'pending';
     const STATUS_APPROVED = 'approved';
     const STATUS_DECLINED = 'declined';
+   
 
 }

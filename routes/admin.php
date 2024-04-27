@@ -31,3 +31,10 @@ Route::resource('degrees',\App\Http\Controllers\Admin\DegreeController::class);
 Route::resource('countries',\App\Http\Controllers\Admin\CountryController::class);
 Route::resource('cities',\App\Http\Controllers\Admin\CityController::class);
 Route::resource('jobs', \App\Http\Controllers\Admin\JobController::class);
+
+
+
+
+
+
+
