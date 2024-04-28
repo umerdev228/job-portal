@@ -71,18 +71,17 @@ class SkillController extends Controller
         $skill->save();
         return to_route('admin.skills.index');
     }
-    public function updateStatus(Request $request, $id)
+    public function updateStatus($id)
     {
-        // dd(request()->all());
         $skill = Skill::findOrFail($id);
         $skill->update([
-            'status' => $request->status
+            'status' => $skill->status === 1 ? 0 : 1,
         ]);
-        // dd($skill->status);
+
         return to_route('admin.skills.index');
     }
 
-   
+
     /**
      * Remove the specified resource from storage.
      */
