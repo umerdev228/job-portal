@@ -67,6 +67,18 @@ class DegreeController extends Controller
         return to_route('admin.degrees.index');
     }
 
+    public function updateDegree(Request $request ,$id)
+    {
+        // dd(request()->all());
+        $degree = Degree::findOrFail($id);
+        
+        $degree->update([
+            'status' => $request->status,
+        ]);
+    
+        return to_route('admin.degrees.index');
+    }
+
     /**
      * Remove the specified resource from storage.
      */

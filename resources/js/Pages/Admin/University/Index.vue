@@ -72,7 +72,7 @@ const props = defineProps({
                             City
                         </th>
                         <th class="px-6 py-3" scope="col">
-                            <span class="sr-only">Actions</span>
+                            Actions
                         </th>
                     </tr>
                     </thead>

@@ -72,6 +72,15 @@ class CountryController extends Controller
         $country->save();
         return to_route('admin.countries.index');
     }
+    public function updateCountry(Request $request, $id)
+    {
+        // dd(request()->all());
+        $country = Country::FindOrFail($id);
+        $country->update([
+            'status'=>$request->status,
+        ]);
+    }
+   
 
     /**
      * Remove the specified resource from storage.

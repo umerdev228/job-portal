@@ -16,6 +16,11 @@ use Inertia\Inertia;
 |
 */
 Route::put('/admin/jobs/updateFeature/{id}', [\App\Http\Controllers\Admin\JobController::class, 'updateFeature'])->name('admin.jobs.updateFeature');
+Route::put('/admin/skills/updateStatus/{id}', [\App\Http\Controllers\Admin\SkillController::class, 'updateStatus'])->name('admin.skills.updateStatus');
+Route::put('/admin/categories/updateCategories/{id}', [\App\Http\Controllers\Admin\CategoryController::class, 'updateCategories'])->name('admin.categories.updateCategories');
+Route::put('/admin/degrees/updatedegrees/{id}', [\App\Http\Controllers\Admin\DegreeController::class, 'updateDegree'])->name('admin.degrees.updatedegrees');
+Route::put('/admin/degrees/updateCountries/{id}', [\App\Http\Controllers\Admin\CountryController::class, 'updateCountry'])->name('admin.countries.updateCountries');
+Route::put('/admin/cities/updateCities/{id}', [\App\Http\Controllers\Admin\CityController::class, 'updateCity'])->name('admin.cities.updateCities');
 
 Route::any('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::any('/jobs', [\App\Http\Controllers\JobController::class, 'index'])->name('jobs.index');

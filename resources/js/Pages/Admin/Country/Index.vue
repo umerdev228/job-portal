@@ -1,6 +1,7 @@
 <script setup>
 import {Link, Head} from '@inertiajs/vue3';
 import AdminLayout from "@/Layouts/AdminLayout.vue";
+import { Inertia } from '@inertiajs/inertia';
 
 
 const props = defineProps({
@@ -13,6 +14,12 @@ const props = defineProps({
         default: [],
     }
 });
+
+const toggleStatus = (countryId,newValue) =>{
+    Inertia.put(route('admin.countries.updateCountries',countryId),{
+        'status':newValue
+    });
+};
 
 
 
@@ -71,7 +78,10 @@ const props = defineProps({
                             Iso3
                         </th>
                         <th class="px-6 py-3" scope="col">
-                            <span class="sr-only">Actions</span>
+                            Status
+                        </th>
+                        <th class="px-6 py-3" scope="col">
+                            Actions
                         </th>
                     </tr>
                     </thead>
@@ -86,6 +96,12 @@ const props = defineProps({
                         <td class="px-6 py-4">
                             {{ country.iso3 }}
                         </td>
+                        <td class="px-6 py-4">
+                            <label  class="inline-flex items-center cursor-pointer" >
+                                <input v-model="country.status"  type="checkbox" class="sr-only peer" v-on:change="toggleStatus(country.id,country.status)">
+                                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            </label>
+                        </td>  
                         <td class="px-6 py-4 text-right flex">
                             <Link class="font-medium text-blue-600 dark:text-blue-500 hover:underline" :href="route('admin.countries.edit',country.id)" >
                                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">

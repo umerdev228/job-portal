@@ -13,5 +13,6 @@ class Country extends Model
         'title',
         'iso2',
         'iso3',
+        'status'
     ];
 }

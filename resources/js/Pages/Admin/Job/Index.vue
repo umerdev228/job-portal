@@ -90,9 +90,7 @@ const toggleFeature = (jobId, newValue) => {
                         <th class="px-6 py-3" scope="col">
                             Title
                         </th>
-                        <th class="px-6 py-3" scope="col">
-                            is_feature 
-                        </th>
+                       
                         <th class="px-6 py-3" scope="col">
                             Experience 
                         </th>
@@ -115,9 +113,6 @@ const toggleFeature = (jobId, newValue) => {
                         <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white" scope="row">
                             {{ job.title }}
                         </th>
-                        <td class="px-6 py-4">
-                            {{ job.is_feature  }}
-                        </td>
                         <td class="px-6 py-4">
                             {{ job.experience }}
                         </td>

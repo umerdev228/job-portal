@@ -79,6 +79,15 @@ class CityController extends Controller
 
     }
 
+    public function updateCity(Request $request,$id)
+    {
+        $city = City::FindOrFail($id);
+        $city->update([
+
+            'status'=>$request->status,
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */
