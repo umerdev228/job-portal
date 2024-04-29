@@ -84,7 +84,7 @@ class CityController extends Controller
         $city = City::FindOrFail($id);
         $city->update([
 
-            'status'=>$request->status,
+            'status'=>$city->status==1? 0:1,
         ]);
     }
 

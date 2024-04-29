@@ -75,7 +75,7 @@ class CategoryController extends Controller
     {
         $category = Category::FindOrFail($id); 
         $category->update([
-            'status'=>$request->status,
+            'status'=>$category->status===1? 0:1,
         ]);
         return to_route('admin.countries.index');
     }

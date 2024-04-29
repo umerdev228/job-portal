@@ -73,7 +73,7 @@ class DegreeController extends Controller
         $degree = Degree::findOrFail($id);
         
         $degree->update([
-            'status' => $request->status,
+            'status' => $degree->status === 1 ? 0 : 1,
         ]);
     
         return to_route('admin.degrees.index');

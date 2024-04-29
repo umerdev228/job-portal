@@ -134,7 +134,7 @@ class JobController extends Controller
         // dd($request->all());
         $job = Job::findOrFail($id);
         $job->update([
-            'is_feature' => $request->is_feature
+            'is_feature' => $job->is_feature===1? 0:1,
         ]);
         
          return to_route('admin.jobs.index');

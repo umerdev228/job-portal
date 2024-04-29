@@ -33,12 +33,8 @@ const truncateDescription = (description) => {
 
 
 
-const toggleFeature = (jobId, newValue) => {
-    // Send an Inertia request to update the is_feature value
-    Inertia.put(route('admin.jobs.updateFeature', jobId), {
-        is_feature: newValue,
-    });
-    
+const toggleFeature = (jobId) => {
+    Inertia.put(route('admin.jobs.updateFeature',jobId));
 };
 
 
@@ -124,7 +120,7 @@ const toggleFeature = (jobId, newValue) => {
                         </td>
                         <td class="px-6 py-4">
                             <label  class="inline-flex items-center cursor-pointer" >
-                                <input v-model="job.is_feature"  type="checkbox" class="sr-only peer" v-on:change="toggleFeature(job.id,job.is_feature)">
+                                <input :checked="job.is_feature"  type="checkbox" class="sr-only peer" value="1" v-on:change="toggleFeature(job.id)">
                                 <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                             </label>
                         </td>                     

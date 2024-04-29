@@ -77,9 +77,10 @@ class CountryController extends Controller
         // dd(request()->all());
         $country = Country::FindOrFail($id);
         $country->update([
-            'status'=>$request->status,
+            'status'=>$country->status===1? 0:1,
         ]);
     }
+    
    
 
     /**
