@@ -7,12 +7,10 @@ const props = defineProps({
         type: Object,
         default: {},
     },
-    job: {
+    user: {
         type: Array,
         required: true,
     },
-
-
 });
 
 </script>
@@ -27,26 +25,30 @@ const props = defineProps({
             </h1>
         </div>
 
+         <div id="gallery" class="relative w-full">
+           
+           <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+               <div class="duration-700 ease-in-out flex justify-center">
+                <img :src="user.image" alt="" class="rounded-t-lg"/>
+               </div>
+           </div>
+       </div>
 
-        <div id="gallery" class="relative w-full">
-            <!-- Carousel wrapper -->
-            <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-                <div class="duration-700 ease-in-out flex justify-center">
-                    <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg" alt="">
-                </div>
-            </div>
-        </div>
 
-
-        <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">We invest in the world’s potential</h1>
-        <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
-
-        <p class="mb-3 text-gray-500 dark:text-gray-400">
-            Track work across the enterprise through an open, collaborative platform. Link issues across Jira and ingest
-            data from other software development tools, so your IT support and operations teams have richer contextual
-            information to rapidly respond to requests, incidents, and changes.
-        </p>
-
+       <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl"> {{ user.first_name }} {{ user.last_name }}</h1>
+       <p class="mb-3 text-gray-500 dark:text-gray-400">
+        {{ user.seeker.country }}
+       </p>
+       <template v-for="skill in user.seeker.skills">
+                    <span class="inline-block bg-blue-100 text-blue-800 text-xs font-medium me-2 mb-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                        {{ skill.title }},
+                    </span>
+                </template>
+       <p class="mb-3 text-black-500 dark:text-black-400">
+        {{ user.seeker.about }}
+       </p>
+       
+      
 
     </FrontendLayout>
 </template>

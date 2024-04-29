@@ -7,6 +7,7 @@ use App\Http\Requests\StoreSeekerProfileRequest;
 use App\Http\Requests\UpdateSeekerProfileRequest;
 use App\Models\User;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
 
 class SeekerProfileController extends Controller
 {
@@ -42,9 +43,13 @@ class SeekerProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SeekerProfile $seekerProfile)
+    public function show(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        //dd($users);
+        return Inertia::render('Talent/Show', [
+            'user' => $user,
+        ]);
     }
 
     /**

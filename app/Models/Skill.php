@@ -11,7 +11,7 @@ class Skill extends Model
 
     protected $fillable = ['title', 'status'];
 
-    const STATUS_ACTIVE = 'active';
-    const STATUS_DEACTIVE = 'deactive';
+    const STATUS_ACTIVE = '1';
+    const STATUS_DEACTIVE = '0';
 
 }

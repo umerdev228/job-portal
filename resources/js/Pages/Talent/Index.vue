@@ -12,8 +12,16 @@ const props = defineProps({
         type: Array,
         required: true,
     },
-
+  
 });
+
+const truncateabout = (about) => {
+    const words = about.split(' ');
+    if (words.length > 10) {
+        return words.slice(0, 10).join(' ') + '...';
+    }
+    return about;
+};
 
 
 </script>
@@ -27,24 +35,28 @@ const props = defineProps({
                 users
             </h1>
         </div>
+      
         <div class="grid grid-cols-4 md:grid-cols-4 gap-4">
-            <div v-for="user in users.data"
-                 class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <Link >
-                    <img :src="user.image" alt="" class="rounded-t-lg"/>
-                </Link>
-                <div class="p-5">
-                    <Link >
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            {{ user.first_name }} {{ user.last_name }}</h5>
-                    </Link>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                        Email : {{ user.email }}</p>
-                   
-                </div>
-            </div>
-
+    <div v-for="user in users.data"
+         class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <Link :href="route('talents.show', { user})">
+            <img :src="user.image" alt="" class="rounded-t-lg"/>
+        </Link>
+        <div class="p-5">
+            <Link :href="route('talents.show', { user})">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {{ user.first_name }} {{ user.last_name }}</h5>
+            </Link>
+            
+                <template v-for="skill in user.seeker.skills">
+                    <span class="inline-block bg-blue-100 text-blue-800 text-xs font-medium me-2 mb-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                        {{ skill.title }},
+                    </span>
+                </template>
+             <p class="mb-2 text-2sm  tracking-tight text-gray-900 dark:text-white" > {{truncateabout(user.seeker.about) }}</p>
         </div>
+    </div>
+</div>
 
         <!-- Pagination Section -->
         <div class="mt-6 text-black">

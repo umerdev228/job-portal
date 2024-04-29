@@ -63,6 +63,7 @@ class ProfileController extends Controller
         $profile->gender = request()->gender;
         $profile->dob = Carbon::parse(request()->dob);
         $profile->phone = request()->phone;
+        $profile->about = request()->about;
         $profile->save();
 
         SeekerSkill::where('user_id', auth()->id())->delete();

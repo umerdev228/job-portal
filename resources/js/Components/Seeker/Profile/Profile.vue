@@ -29,6 +29,7 @@ const form = useForm({
     gender: props.profile.gender,
     image: '',
     skills: props.user_skills,
+    about:props.profile.about,
 });
 
 </script>
@@ -90,6 +91,11 @@ const form = useForm({
                             <span class="multiselect__single" v-if="skills.length" v-show="!isOpen">{{ skills.length }} options selected</span>
                         </template>
                     </multiselect>
+                </div>
+
+                <div class="mb-6 mx-2">
+                    <label for="about" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">About</label>
+                    <textarea v-model="form.about" id="about" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="About"></textarea>
                 </div>
 
             </div>

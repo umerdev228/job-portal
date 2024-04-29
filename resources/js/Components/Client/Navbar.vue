@@ -23,7 +23,9 @@ const props = defineProps({
                         data-dropdown-placement="bottom" data-dropdown-toggle="user-dropdown"
                         type="button">
                     <span class="sr-only">Open user menu</span>
-                    <img alt="user photo" class="w-8 h-8 rounded-full" src="/images/default.png">
+                   <img alt="user photo"
+                                     class="w-8 h-8 rounded-full"
+                                     :src="auth.user.image">
                 </button>
                 <!-- Dropdown menu -->
                 <div
