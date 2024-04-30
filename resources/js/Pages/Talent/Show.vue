@@ -36,9 +36,6 @@ const props = defineProps({
 
 
        <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl"> {{ user.first_name }} {{ user.last_name }}</h1>
-       <p class="mb-3 text-gray-500 dark:text-gray-400">
-        {{ user.seeker.country }}
-       </p>
        <template v-for="skill in user.seeker.skills">
                     <span class="inline-block bg-blue-100 text-blue-800 text-xs font-medium me-2 mb-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">
                         {{ skill.title }},

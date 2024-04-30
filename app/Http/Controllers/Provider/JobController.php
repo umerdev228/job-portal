@@ -106,8 +106,7 @@ class JobController extends Controller
      */
     public function update(UpdateJobRequest $request, Job $job)
     {
-
-
+   
         $job->update([
             'user_id' => Auth::id(),
             'category_id' => $request->category_id,
@@ -121,6 +120,7 @@ class JobController extends Controller
             request()->image->move(public_path('images/jobs/'), $imageName);
             $job->image = '/images/jobs/' . $imageName;
             $job->save();
+            
         }
         if (count(request()->skills) > 0) {
             JobSkill::where('job_id', $job->id)->delete();
@@ -131,7 +131,7 @@ class JobController extends Controller
                 ]);
             }
         }
-
+       
         return to_route('provider.jobs.index');
     }
 

@@ -97,7 +97,7 @@ const toggleFeature = (jobId) => {
                             Status
                         </th>
                         <th class="px-6 py-3" scope="col">
-                            Is_Feature
+                            Feature
                         </th>
                         <th class="px-6 py-3" scope="col">
                             Actions

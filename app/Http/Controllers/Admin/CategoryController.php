@@ -71,13 +71,26 @@ class CategoryController extends Controller
         $category->save();
         return to_route('admin.categories.index');
     }
+    
     public function updateCategories(Request $request, $id)
     {
         $category = Category::FindOrFail($id); 
         $category->update([
             'status'=>$category->status===1? 0:1,
         ]);
-        return to_route('admin.countries.index');
+        return to_route('admin.categories.index');
+    }
+
+
+    public function updateFeature(Request $request, $id)
+    {
+       dd(request()->all());
+        $category = Category::FindOrFail($id); 
+        $category->update([
+            'is_feature'=>$category->is_feature===1? 0:1,
+        ]);
+      
+        return to_route('admin.categories.index');
     }
     /**
      * Remove the specified resource from storage.

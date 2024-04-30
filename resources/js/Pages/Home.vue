@@ -165,7 +165,10 @@ function filterJob(category_id) {
             <div v-for="job in jobs"
                 class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <Link :href="route('jobs.show', job.id)">
-                    <img alt="" class="rounded-t-lg" :src="job.image"/>
+                    <div class="relative w-full aspect-w-4 aspect-h-3">
+                         <img alt="" class="rounded-t-lg object-cover" :src="job.image"/>
+                     </div>
+                    <!-- <img alt="" class="rounded-t-lg" :src="job.image"/> -->
                 </Link>
                 <div class="p-5">
                     <Link :href="route('jobs.show', job.id)">

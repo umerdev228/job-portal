@@ -9,7 +9,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'status'];
+    protected $fillable = ['title','is_feature', 'status'];
 
     const STATUS_PENDING = 0;
     const STATUS_APPROVED = 1;
