@@ -3,6 +3,7 @@
 import {Head, Link, useForm} from "@inertiajs/vue3";
 import ProviderLayout from "@/Layouts/ProviderLayout.vue";
 import Multiselect from 'vue-multiselect'
+import { router } from '@inertiajs/vue3'
 
 const props = defineProps({
     auth: {
@@ -27,16 +28,28 @@ const props = defineProps({
     },
 });
 
-
-
 const form = useForm({
-    category_id: props.job.category_id || 0,
-    title: props.job.title || '',
-    experience: props.job.experience || '',
-    description: props.job.description || '',
-    image: props.job.image || '',
-    skills: props.job_skills || [],
+    category_id: props.job.category_id,
+    title: props.job.title,
+    experience: props.job.experience,
+    description: props.job.description,
+    image: props.job.image,
+    skills: props.job_skills,
 });
+
+function updateJob() {
+    // form.put(route('provider.jobs.update',job.id), { onSuccess: () => editing = false })
+
+    router.post(route('provider.jobs.update',props.job.id), {
+        _method: 'put',
+        category_id: form.category_id,
+        title: form.title,
+        experience: form.experience,
+        description: form.description,
+        image: form.image,
+        skills: form.skills,
+    })
+}
 
 </script>
 
@@ -44,7 +57,7 @@ const form = useForm({
     <Head title="Update Job | Jobs Hub"/>
     <ProviderLayout :auth="auth">
         <h1 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
-           Edit Jobs
+            Edit Jobs
         </h1>
 
 
@@ -65,8 +78,8 @@ const form = useForm({
                                   stroke-width="2"/>
                         </svg>
                         <Link :href="route('provider.jobs.index')"
-                            class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
-                            href="">Jobs
+                              class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
+                              href="">Jobs
                         </Link>
                     </div>
                 </li>
@@ -88,35 +101,43 @@ const form = useForm({
 
 
         <form enctype="multipart/form-data"
-              @submit.prevent="form.put(route('provider.jobs.update',job.id))">
+              @submit.prevent="updateJob()">
 
             <div class="grid grid-cols-1 sm:grid-cols-2">
                 <div class="mb-6 mx-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="title">Title</label>
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                           for="title">Title</label>
                     <input id="title" v-model="form.title"
                            aria-describedby="user_avatar_help"
                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                            name="title" placeholder="Title" type="text">
                 </div>
                 <div class="mb-6 mx-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="category_id">Choose Category</label>
-                    <select v-model="form.category_id" id="category_id" name="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="0" disabled selected>Choose a Category</option>
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="category_id">
+                        Choose Category
+                    </label>
+                    <select id="category_id" v-model="form.category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            name="category_id">
+                        <option disabled selected value="0">Choose a Category</option>
                         <option v-for="category in categories" :value="category.id">{{ category.title }}</option>
                     </select>
                 </div>
                 <div class="mb-6 mx-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="experience">Experience Required (Years)</label>
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="experience">Experience
+                        Required (Years)</label>
                     <input id="experience" v-model="form.experience"
                            aria-describedby="user_avatar_help"
                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                            name="experience" placeholder="Experience" type="number">
                 </div>
                 <div class="mb-6 mx-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Image</label>
-                    <input @input="form.image = $event.target.files[0]"
-                           class="block w-full text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
-                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                           for="file_input">Image</label>
+                    <input id="file_input"
+                           aria-describedby="file_input_help"
+                           class="block w-full text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" type="file" @input="form.image = $event.target.files[0]">
+                    <p id="file_input_help" class="mt-1 text-sm text-gray-500 dark:text-gray-300">SVG, PNG, JPG or GIF
+                        (MAX. 800x400px).</p>
                 </div>
 
             </div>
@@ -124,15 +145,18 @@ const form = useForm({
                 <div class="mb-6 mx-2">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="description">Description</label>
                     <textarea id="description" v-model="form.description"
-                           aria-describedby="user_avatar_help"
-                           class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                              aria-describedby="user_avatar_help"
+                              class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                               name="description" placeholder="Experience"></textarea>
                 </div>
                 <div class="mb-6 mx-2">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="status">Skills</label>
-                    <multiselect v-model="form.skills" :options="skills" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Choose Skills" label="title" track-by="id" :preselect-first="true">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                           for="status">Skills</label>
+                    <multiselect v-model="form.skills" :clear-on-select="false" :close-on-select="false" :multiple="true"
+                                 :options="skills" :preselect-first="true" :preserve-search="true"
+                                 label="title" placeholder="Choose Skills" track-by="id">
                         <template slot="selection" slot-scope="{ values, search, isOpen }">
-                            <span class="multiselect__single" v-if="skills.length" v-show="!isOpen">{{ skills.length }} options selected</span>
+                            <span v-if="skills.length" v-show="!isOpen" class="multiselect__single">{{ skills.length }} options selected</span>
                         </template>
                     </multiselect>
                 </div>

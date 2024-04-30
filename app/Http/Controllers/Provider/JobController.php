@@ -57,7 +57,7 @@ class JobController extends Controller
             'experience' => $request->experience,
             'description' => $request->description,
         ]);
-        
+
         if (request()->file('image')) {
             $imageName = time() . auth()->id() . '.' . request()->image->extension();
             request()->image->move(public_path('images/jobs/'), $imageName);
@@ -106,21 +106,18 @@ class JobController extends Controller
      */
     public function update(UpdateJobRequest $request, Job $job)
     {
-   
         $job->update([
             'user_id' => Auth::id(),
             'category_id' => $request->category_id,
             'title' => $request->title,
             'experience' => $request->experience,
             'description' => $request->description,
-
         ]);
         if (request()->file('image')) {
             $imageName = time() . auth()->id() . '.' . request()->image->extension();
             request()->image->move(public_path('images/jobs/'), $imageName);
             $job->image = '/images/jobs/' . $imageName;
             $job->save();
-            
         }
         if (count(request()->skills) > 0) {
             JobSkill::where('job_id', $job->id)->delete();
@@ -131,7 +128,7 @@ class JobController extends Controller
                 ]);
             }
         }
-       
+
         return to_route('provider.jobs.index');
     }
 

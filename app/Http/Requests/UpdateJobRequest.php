@@ -22,7 +22,11 @@ class UpdateJobRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'category_id' => ['required'],
+            'title' => ['required'],
+            'experience' => ['required'],
+            'description' => ['required'],
+            'skills' => ['required'],
         ];
     }
 }

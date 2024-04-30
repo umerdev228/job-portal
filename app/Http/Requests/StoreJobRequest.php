@@ -27,6 +27,7 @@ class StoreJobRequest extends FormRequest
             'experience' => ['required'],
             'description' => ['required'],
             'skills' => ['required'],
+            'image' => ['required'],
         ];
     }
 }
