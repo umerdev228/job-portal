@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Job;
 use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
+use App\Models\Category;
+use App\Models\Job;
 use App\Models\JobApply;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class JobController extends Controller
@@ -22,10 +20,10 @@ class JobController extends Controller
 
         $categories = Category::where('status', Category::STATUS_APPROVED)->limit(4)->get();
         $jobs = Job::query()
-            ->when(Request::input('search'), function ($query, $search){
+            ->when(Request::input('search'), function ($query, $search) {
                 $query->where('title', 'like', "%{$search}%");
             })
-            ->where('status',Job::STATUS_APPROVED)
+            ->where('status', Job::STATUS_APPROVED)
             ->latest()
             ->paginate(8);
 
@@ -57,8 +55,13 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
+        $applied = false;
+        if (\auth()->user()) {
+            $applied = JobApply::where('user_id', auth()->id())->where('job_id', $job->id)->exists();
+        }
         return Inertia::render('Job/Show', [
             'job' => $job,
+            'applied' => $applied,
         ]);
     }
 
