@@ -38,14 +38,20 @@ function applyJob() {
                 Job
             </h1>
         </div>
-        <div id="gallery" class="relative w-full">
-            <!-- Carousel wrapper -->
+        <!-- <div id="gallery" class="relative w-full">
+            
             <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                 <div class="duration-700 ease-in-out flex justify-center">
                     <img :src="job.image" alt="">
                 </div>
             </div>
-        </div>
+        </div> -->
+        <div id="gallery" class="relative w-full flex justify-center">
+    <div class="image-container">
+        <img :src="job.image" alt="">
+    </div>
+</div>
+       
         <Link v-if="!auth.user" :href="route('login')"
               class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Login to Apply Now
@@ -133,5 +139,25 @@ function applyJob() {
 </template>
 
 <style>
+#gallery {
+    width: 100%;
+}
+
+.image-container {
+    width: 50%;
+    /* Center the container horizontally */
+    margin: 0 auto;
+    /* Define other styles for the container */
+    overflow: hidden;
+    border-radius: 8px; /* Adjust as needed */
+}
+
+.image-container img {
+    width: 100%;
+    /* Maintain aspect ratio and cover the container */
+    height: auto;
+    object-fit: cover;
+}
+
 
 </style>
