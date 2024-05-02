@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
 use App\Models\Category;
 use App\Models\Job;
 use App\Models\JobApply;
-use Inertia\Inertia;
 use App\Models\Skill;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+
+// use Illuminate\Support\Facades\Request;
 
 class JobController extends Controller
 {
@@ -18,33 +19,46 @@ class JobController extends Controller
      * Display a listing of the resource.
      */
 
-     public function index(Request $request)
-{
-    $skills = Skill::where('status', Skill::STATUS_ACTIVE)->select('id', 'title')->get();
-    $categories = Category::where('status', Category::STATUS_APPROVED)->get();
+    public function index(Request $request)
+    {
+        $chosen_skills = [];
+        if (count($request->chosen_skills)) {
+            $chosen_skills = collect($request->chosen_skills)->pluck('id')->ToArray();
+        }
 
-    $jobs = Job::query()
-        ->when($request->input('search'), function ($query, $search) {
-            $query->where('title', 'like', "%{$search}%")
-                  ->orWhere('category_id', 'like', "%{$search}%");
-                //   ->orWhere('skill_id', 'like', "%{$search}%");
-        })
-        ->where('status', Job::STATUS_APPROVED)
-        ->latest()
-        ->paginate(8);
+        $skills = Skill::where('status', Skill::STATUS_ACTIVE)->select('id', 'title')->get();
+        $categories = Category::where('status', Category::STATUS_APPROVED)->get();
 
-    return Inertia::render('Job/Index', [
-        'categories' => $categories,
-        'jobs' => $jobs,
-        'skills' => $skills,
-        'filters' => $request->input('search'),
-    ]);
-}
+        $jobs = Job::query()->where('status', Job::STATUS_APPROVED)
+            ->when(count($request->chosen_skills) > 0, function ($query) use ($chosen_skills) {
+                $query->whereHas('skills', function ($q) use ($chosen_skills) {
+                    $q->whereIn('skill_id', $chosen_skills);
+                });
+            })
+            ->when($request->input('search'), function ($query, $search) {
+                $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('category_id', 'like', "%{$search}%");
+            })
+            ->when($request->input('chosen_category'), function ($query, $search) {
+                $query->where('category_id', $search);
+            })
+            ->latest()
+            ->paginate(8);
+
+        return Inertia::render('Job/Index', [
+            'categories' => $categories,
+            'jobs' => $jobs,
+            'skills' => $skills,
+            'filters' => $request->input('search'),
+            'chosen_category' => $request->input('chosen_category'),
+            'chosen_skills' => $request->input('chosen_skills'),
+        ]);
+    }
 
     // public function index(Request  $request)
     // {
 
-        
+
     // //     $categories = Category::where('status', Category::STATUS_APPROVED)->get();
 
     // //     $jobs = Job::query()->where('status', Job::STATUS_APPROVED);
@@ -56,13 +70,13 @@ class JobController extends Controller
 
     // //     // Apply category filter
     // //     if ($request->category_id && $request->category_id > 0) {
-    // //         $jobs->where('category_id', $request->category_id); 
+    // //         $jobs->where('category_id', $request->category_id);
     // //     }
 
     // //       // Apply skill filter
     // // if ($request->input('skill_id') && $request->input('skill_id') > 0) {
     // //     $jobs->where('skill_id', $request->input('skill_id'));
-    // // } 
+    // // }
     // $skills = Skill::where('status', Skill::STATUS_ACTIVE)->select('id', 'title')->get();
     // $categories = Category::where('status', Category::STATUS_APPROVED)->get();
 
@@ -86,7 +100,7 @@ class JobController extends Controller
     //      'skills' => $skills,
     //     'filters' => Request::input('search'),
     // ]);
-      
+
     // }
 
     /**
