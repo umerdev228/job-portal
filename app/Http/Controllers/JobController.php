@@ -22,7 +22,7 @@ class JobController extends Controller
     public function index(Request $request)
     {
         $chosen_skills = [];
-        if (count($request->chosen_skills)) {
+        if ($request->has('chosen_skills') && count($request->chosen_skills)) {
             $chosen_skills = collect($request->chosen_skills)->pluck('id')->ToArray();
         }
 
@@ -30,7 +30,7 @@ class JobController extends Controller
         $categories = Category::where('status', Category::STATUS_APPROVED)->get();
 
         $jobs = Job::query()->where('status', Job::STATUS_APPROVED)
-            ->when(count($request->chosen_skills) > 0, function ($query) use ($chosen_skills) {
+            ->when(count($chosen_skills) > 0, function ($query) use ($chosen_skills) {
                 $query->whereHas('skills', function ($q) use ($chosen_skills) {
                     $q->whereIn('skill_id', $chosen_skills);
                 });
@@ -49,9 +49,9 @@ class JobController extends Controller
             'categories' => $categories,
             'jobs' => $jobs,
             'skills' => $skills,
-            'filters' => $request->input('search'),
-            'chosen_category' => $request->input('chosen_category'),
-            'chosen_skills' => $request->input('chosen_skills'),
+            'filters' => $request->input('search') ?? '',
+            'chosen_category' => $request->input('chosen_category') ?? 0,
+            'chosen_skills' => $request->input('chosen_skills') ?? [],
         ]);
     }
 
