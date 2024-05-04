@@ -59,16 +59,32 @@ const truncateabout = (about) => {
 </div>
 
         <!-- Pagination Section -->
-        <div class="mt-6 text-black">
-            <Component
-                :is="link.url ? 'Link' : 'span'"
-                v-for="link in users.links"
-                :class="{'text-gray-500': !link.url, 'font-bold': link.active}"
-                :href="link.url"
-                class="px-1"
-                v-html="link.label"
-            />
-        </div>
+        <nav aria-label="Page navigation example" class="mt-6">
+    <ul class="inline-flex -space-x-px text-sm">
+        <li>
+            <Component :is="users.links[0].url ? 'Link' : 'span'"
+                       :class="{ 'font-bold': users.links[0].active, 'hover:text-white hover:font-bold': users.links[0].active }"
+                       :href="users.links[0].url"
+                       class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                       v-html="users.links[0].label"/>
+        </li>
+        <li v-for="(link, index) in users.links.slice(1, -1)" :key="index">
+            <Component :is="link.url ? 'Link' : 'span'"
+                       :class="{'text-white': !link.url,  'font-bold': link.active}"
+                       :href="link.url"
+                       class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                       v-html="link.label"/>
+        </li>
+        <li>
+            <Component :is="users.links.slice(-1)[0].url ? 'Link' : 'span'"
+                       :class="{ 'font-bold': users.links.slice(-1)[0].active, 'hover:text-white hover:font-bold': users.links.slice(-1)[0].active }"
+                       :href="users.links.slice(-1)[0].url"
+                       class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                       v-html="users.links.slice(-1)[0].label"/>
+        </li>
+    </ul>
+</nav>
+
 
 
     </FrontendLayout>

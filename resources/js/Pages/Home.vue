@@ -2,7 +2,7 @@
 import {Head, useForm} from '@inertiajs/vue3';
 import FrontendLayout from "@/Layouts/FrontendLayout.vue";
 import { Link } from '@inertiajs/vue3';
-import { router } from '@inertiajs/vue3'
+import { router } from '@inertiajs/vue3';
 
 defineProps({
     auth: {

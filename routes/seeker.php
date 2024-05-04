@@ -23,3 +23,4 @@ Route::put('/profile/password', [\App\Http\Controllers\Seeker\ProfileController:
 Route::put('/profile/address', [\App\Http\Controllers\Seeker\ProfileController::class, 'updateAddress'])->name('profile.address.update');
 Route::put('/profile/qualification', [\App\Http\Controllers\Seeker\ProfileController::class, 'updateQualification'])->name('profile.qualification.update');
 
+Route::resource('jobapply',\App\Http\Controllers\Seeker\JobApplyController::class);

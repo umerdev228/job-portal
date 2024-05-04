@@ -25,8 +25,8 @@ const props = defineProps({
 
 const truncateDescription = (description) => {
     const words = description.split(' ');
-    if (words.length > 10) {
-        return words.slice(0, 15).join(' ') + '...';
+    if (words.length > 8) {
+        return words.slice(0, 8).join(' ') + '...';
     }
     return description;
 };
@@ -150,21 +150,35 @@ const toggleFeature = (jobId) => {
                 </table>
             </div>
 
+            <nav aria-label="Page navigation example" class="mt-6">
+            <ul class="inline-flex -space-x-px text-sm">
+                <li>
+                    <Component :is="jobs.links[0].url ? Link : 'span'"
+                               :class="{ 'font-bold': jobs.links[0].active, 'hover:text-white hover:font-bold': jobs.links[0].active }"
+                               :href="jobs.links[0].url"
+                               class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                               v-html="jobs.links[0].label"/>
+                </li>
+                <li v-for="(link, index) in jobs.links.slice(1, -1)" :key="index">
+                    <Component :is="link.url ? Link : 'span'"
+                               :class="{'text-white': !link.url,  'font-bold': link.active}"
+                               :href="link.url"
+                               class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                               v-html="link.label"/>
+                </li>
+                <li>
+                    <Component :is="jobs.links.slice(-1)[0].url ? Link : 'span'"
+                               :class="{ 'font-bold': jobs.links.slice(-1)[0].active, 'hover:text-white hover:font-bold': jobs.links.slice(-1)[0].active }"
+                               :href="jobs.links.slice(-1)[0].url"
+                               class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                               v-html="jobs.links.slice(-1)[0].label"/>
+                </li>
+            </ul>
+        </nav>
+
 
         </div>
 
-        <div class="mt-6 text-white">
-        <Component
-	     :is="link.url ? Link : 'span'"
-
-          v-for="link in jobs.links" 
-          :href="link.url" 
-          v-html="link.label" 
-          class="px-1" 
-          :class="{'text-gray-500': !link.url,'font-bold':link.active}"
-        />
-          
-        </div>
 
     </AdminLayout>
 </template>

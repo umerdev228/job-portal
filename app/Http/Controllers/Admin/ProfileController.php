@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AdminProfile;
 use App\Models\User;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
@@ -31,9 +33,13 @@ class ProfileController extends Controller
         $user->email=request()->email;
         $user->save();
         if (request()->file('image')) {
+            if($user->image)
+            {
+                Storage::delete($user->image);
+            }
             $imageName = auth()->id() . '.' . request()->image->extension();
-            request()->image->move(public_path('images/profile/'), $imageName);
-            $user->image = '/images/profile/' . $imageName;
+            $path =request()->image->storeAs('public/admin/profile',$imageName);
+            $user->image =$path;
             $user->save();
         }
     }

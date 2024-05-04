@@ -4,9 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+
 
 class Job extends Model
 {
+
+    protected static function booted()
+    {
+        static::deleting(function ($job) {
+            if ($job->image) {
+                Storage::delete($job->image);
+            }
+        });
+    }
+
     use HasFactory;
     const STATUS_PENDING = 'pending';
     const STATUS_APPROVED = 'approved';
@@ -31,5 +43,4 @@ class Job extends Model
     {
         return $this->belongsToMany(Skill::class, 'job_skills', 'job_id', 'skill_id', 'id');
     }
-
 }

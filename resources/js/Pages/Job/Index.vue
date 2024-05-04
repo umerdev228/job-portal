@@ -2,7 +2,7 @@
 import {Head, Link, useForm} from '@inertiajs/vue3';
 import FrontendLayout from "@/Layouts/FrontendLayout.vue";
 import {ref, watch} from 'vue';
-import Multiselect from 'vue-multiselect'
+import Multiselect from 'vue-multiselect';
 
 const props = defineProps({
     auth: {
@@ -143,9 +143,8 @@ const truncateDescription = (description) => {
                 </Link>
                 <div class="p-5">
                     <Link :href="route('jobs.show', job.id)">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{
-                                job.title
-                            }}</h5>
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            {{job.title}}</h5>
                     </Link>
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                         {{ truncateDescription(job.description) }}</p>
@@ -169,6 +168,8 @@ const truncateDescription = (description) => {
             </div>
 
         </div>
+
+         <!-- Apply Pagination  -->
         <nav aria-label="Page navigation example" class="mt-6">
             <ul class="inline-flex -space-x-px text-sm">
                 <li>

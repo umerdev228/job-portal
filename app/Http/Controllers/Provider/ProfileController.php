@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\ProviderProfile;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 
@@ -44,12 +45,17 @@ class ProfileController extends Controller
         $user->first_name = request()->first_name;
         $user->last_name = request()->last_name;
         $user->save();
+
         if (request()->file('image')) {
+            if ($user->image) {
+                Storage::delete($user->image);
+            }
             $imageName = auth()->id() . '.' . request()->image->extension();
-            request()->image->move(public_path('images/profile/'), $imageName);
-            $user->image = '/images/profile/' . $imageName;
+            $path = request()->image->storeAs('public/provider/profile/', $imageName);
+            $user->image = $path;
             $user->save();
         }
+        
         $profile = ProviderProfile::where('user_id', auth()->id())->first();
         $profile->company_name = request()->company_name;
         $profile->save();
