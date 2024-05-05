@@ -8,7 +8,9 @@ use App\Models\Category;
 use App\Models\Job;
 use App\Models\JobApply;
 use App\Models\Skill;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 // use Illuminate\Support\Facades\Request;
@@ -37,13 +39,14 @@ class JobController extends Controller
             })
             ->when($request->input('search'), function ($query, $search) {
                 $query->where('title', 'like', "%{$search}%");
-                    // ->orWhere('category_id', 'like', "%{$search}%");
+                // ->orWhere('category_id', 'like', "%{$search}%");
             })
             ->when($request->input('chosen_category'), function ($query, $search) {
                 $query->where('category_id', $search);
             })
             ->latest()
             ->paginate(8);
+
 
         return Inertia::render('Job/Index', [
             'categories' => $categories,

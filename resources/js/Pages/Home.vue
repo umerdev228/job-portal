@@ -166,11 +166,13 @@ function filterJob(category_id) {
                 class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <Link :href="route('jobs.show', job.id)">
                     <div class="image-container">
-                        <img alt="" class="rounded-t-lg object-cover" :src="job.image"/>
+                       
+                        <img alt="" class="rounded-t-lg object-cover" :src="'/storage/'  + (job.image.replace('public/' , ''))">
+
                     </div>
-                    <!-- <img alt="" class="rounded-t-lg" :src="job.image"/> -->
                 </Link>
                 <div class="p-5">
+                    
                     <Link :href="route('jobs.show', job.id)">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ job.title }}</h5>
                     </Link>

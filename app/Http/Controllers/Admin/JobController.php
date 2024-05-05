@@ -10,6 +10,7 @@ use App\Models\JobSkill;
 use App\Models\Skill;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class JobController extends Controller
 {
@@ -100,9 +101,13 @@ class JobController extends Controller
        
        
         if (request()->file('image')) {
+            if($job->image)
+            {
+                Storage::delete($job->image);
+            }
             $imageName = time() . auth()->id() . '.' . request()->image->extension();
-            request()->image->move(public_path('images/jobs/'), $imageName);
-            $job->image = '/images/jobs/' . $imageName;
+            $path =request()->image->storeAs('public/jobs/' ,$imageName);
+            $job->image = $path;
             $job->save();
         }
         if (count(request()->skills) > 0) {

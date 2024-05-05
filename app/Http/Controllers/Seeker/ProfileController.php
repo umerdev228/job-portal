@@ -16,6 +16,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 
@@ -53,10 +54,15 @@ class ProfileController extends Controller
         $user->first_name = request()->first_name;
         $user->last_name = request()->last_name;
         $user->save();
+
         if (request()->file('image')) {
+            if($user->image)
+            {
+                Storage::delete($user->image);
+            }
             $imageName = auth()->id() . '.' . request()->image->extension();
-            request()->image->move(public_path('images/profile/'), $imageName);
-            $user->image = '/images/profile/' . $imageName;
+            $path = request()->image->storeAs('public/seeker/profile',$imageName);
+            $user->image = $path;
             $user->save();
         }
         $profile = SeekerProfile::where('user_id', auth()->id())->first();

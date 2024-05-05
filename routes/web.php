@@ -15,6 +15,10 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+
+
 Route::put('/admin/jobs/updateFeature/{id}', [\App\Http\Controllers\Admin\JobController::class, 'updateFeature'])->name('admin.jobs.updateFeature');
 Route::put('/admin/skills/updateStatus/{id}', [\App\Http\Controllers\Admin\SkillController::class, 'updateStatus'])->name('admin.skills.updateStatus');
 Route::put('/admin/categories/updateCategories/{id}', [\App\Http\Controllers\Admin\CategoryController::class, 'updateCategories'])->name('admin.categories.updateCategories');

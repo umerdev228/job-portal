@@ -138,7 +138,7 @@ const truncateDescription = (description) => {
                  class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <Link :href="route('jobs.show', job.id)">
                     <div class="image-container">
-                        <img :src="job.image" alt="" class="rounded-t-lg object-cover"/>
+                        <img :src="'/storage/'+ (job.image.replace('public/','')) " alt="" class="rounded-t-lg object-cover"/>
                     </div>
                 </Link>
                 <div class="p-5">

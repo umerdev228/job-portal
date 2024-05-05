@@ -33,7 +33,7 @@ const props = defineProps({
             <!-- Carousel wrapper -->
             <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                 <div class="duration-700 ease-in-out flex justify-center">
-                    <img :src="job.image" alt="">
+                    <img :src="'/storage/' +(job.image.replace('public',''))" alt="">
                 </div>
             </div>
         </div>

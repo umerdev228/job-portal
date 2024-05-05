@@ -23,6 +23,9 @@ Route::get('/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'i
 Route::post('/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'update'])->name('profile.update');
 Route::put('/profile/password', [\App\Http\Controllers\Admin\ProfileController::class, 'updatePassword'])->name('profile.password.update');
 
+Route::get('/meta', [\App\Http\Controllers\Admin\MetaController::class, 'edit'])->name('meta.edit');
+Route::put('/meta', [\App\Http\Controllers\Admin\MetaController::class, 'update'])->name('meta.update');
+
 Route::resource('roles', \App\Http\Controllers\Admin\RoleController::class);
 Route::resource('skills', \App\Http\Controllers\Admin\SkillController::class);
 Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
@@ -31,6 +34,7 @@ Route::resource('degrees',\App\Http\Controllers\Admin\DegreeController::class);
 Route::resource('countries',\App\Http\Controllers\Admin\CountryController::class);
 Route::resource('cities',\App\Http\Controllers\Admin\CityController::class);
 Route::resource('jobs', \App\Http\Controllers\Admin\JobController::class);
+// Route::resource('metas', \App\Http\Controllers\Admin\MetaController::class);
 
 
 

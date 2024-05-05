@@ -39,7 +39,7 @@ const props = defineProps({
                                 <span class="sr-only">Open user menu</span>
                                 <img alt="user photo"
                                      class="w-8 h-8 rounded-full"
-                                     :src="auth.user.image">
+                                     :src="'/storage/' +(auth.user.image.replace('public',''))">
                             </button>
                         </div>
                         <div

@@ -48,7 +48,7 @@ function applyJob() {
         </div> -->
         <div id="gallery" class="relative w-full flex justify-center">
     <div class="image-container">
-        <img :src="job.image" alt="">
+        <img :src="'/storage/'+(job.image.replace('public',''))" alt="">
     </div>
 </div>
        

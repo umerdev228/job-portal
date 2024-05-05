@@ -8,6 +8,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 
@@ -23,6 +24,7 @@ class HomeController extends Controller
         } else {
             $jobs = Job::where('is_feature', true)->where('status', Job::STATUS_APPROVED)->latest()->take(8)->get();
         }
+       
 
         return Inertia::render('Home', [
             'canLogin' => Route::has('login'),
