@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreJobRequest;
 use App\Http\Requests\UpdateJobRequest;
+use App\Mail\JobApplyMail;
 use App\Models\Category;
 use App\Models\Job;
 use App\Models\JobApply;
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 // use Illuminate\Support\Facades\Request;
 
@@ -115,6 +118,22 @@ class JobController extends Controller
 
     public function apply(Job $job)
     {
+
+        $user = Auth::user();
+        $jobUrl = url('/provider/jobs/' . $job->id);
+        $mailData=[
+            'title' => 'Hi Dear!',
+            'body' => 'New Job Application Received by : ' . $user->first_name . ' ' . $user->last_name ,
+            'userFirstName' => $user->first_name, 
+            'userLastName' => $user->last_name, 
+            'jobTitle' => $job->title,
+            'jobDescription' => $job->description,
+            'jobUrl' => $jobUrl,
+            
+           ];
+    
+            Mail::to('umardev82@gmail.com')->send(new JobApplyMail($mailData));
+
         JobApply::create([
             'user_id' => auth()->id(),
             'job_id' => $job->id,

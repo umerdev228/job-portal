@@ -16,6 +16,7 @@ use Inertia\Inertia;
 |
 */
 
+// Route::get('/send-mail', [\App\Http\Controllers\EmailController::class, 'index']);
 
 
 

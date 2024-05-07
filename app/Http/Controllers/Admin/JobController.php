@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ApprovedJobMail;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Job;
@@ -11,6 +12,8 @@ use App\Models\Skill;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+
 
 class JobController extends Controller
 {
@@ -19,7 +22,7 @@ class JobController extends Controller
      */
     public function index()
     {
-         
+
         $categories = Category::where('status', Category::STATUS_APPROVED)->get();
         //$jobs = Job::latest()->get();
         $jobs = Job::latest()->paginate(5);
@@ -86,8 +89,8 @@ class JobController extends Controller
      */
     public function update(Request $request, Job  $job)
     {
-        
-        
+        // dd(request()->all());
+
         $job->update([
             'user_id' => Auth::id(),
             'category_id' => $request->category_id,
@@ -98,15 +101,37 @@ class JobController extends Controller
             'is_feature' => $request->is_feature,
 
         ]);
-       
-       
+
+
+        
+
+        if ($request->status === 'approved') {
+            $jobCreator = $job->user;
+        
+            if ($jobCreator) {
+                // Concatenate first name and last name
+                $name = $jobCreator->first_name . ' ' . $jobCreator->last_name;
+        
+                $mailData = [
+                    'title' => 'Job Approved',
+                    'body' => 'Your job "' . $job->title . '" has been approved.',
+                    'name' => $name, // Concatenated name
+                    'job' => $job,
+                ];
+                Mail::to('umardev82@gmail.com')->send(new ApprovedJobMail($mailData));
+            }
+        }
+
+
+
+
+
         if (request()->file('image')) {
-            if($job->image)
-            {
+            if ($job->image) {
                 Storage::delete($job->image);
             }
             $imageName = time() . auth()->id() . '.' . request()->image->extension();
-            $path =request()->image->storeAs('public/jobs/' ,$imageName);
+            $path = request()->image->storeAs('public/jobs/', $imageName);
             $job->image = $path;
             $job->save();
         }
@@ -139,12 +164,9 @@ class JobController extends Controller
         // dd($request->all());
         $job = Job::findOrFail($id);
         $job->update([
-            'is_feature' => $job->is_feature===1? 0:1,
+            'is_feature' => $job->is_feature === 1 ? 0 : 1,
         ]);
-        
-         return to_route('admin.jobs.index');
+
+        return to_route('admin.jobs.index');
     }
-
-
-
 }

@@ -12,6 +12,8 @@ use App\Models\Skill;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Mail;
+use App\mail\CreateJObMail;
 
 class JobController extends Controller
 {
@@ -50,7 +52,8 @@ class JobController extends Controller
      */
     public function store(StoreJobRequest $request)
     {
-
+        $user = Auth::user();
+      
         $job = Job::create([
             'user_id' => Auth::id(),
             'category_id' => $request->category_id,
@@ -75,8 +78,23 @@ class JobController extends Controller
                 ]);
             }
         }
+      
+        $jobUrl = url('/admin/jobs/' . $job->id);
+        $mailData=[
+            'title' => 'Create a jobs please check it and Approved !',
+            'body' => 'A new job has been created by : ' . $user->first_name . ' ' . $user->last_name . '. Check it!',
+            'userFirstName' => $user->first_name, 
+            'userLastName' => $user->last_name, 
+            'jobTitle' => $job->title,
+            'jobDescription' => $job->description,
+            'jobUrl' => $jobUrl,
+           ];
+    
+            Mail::to('umardev82@gmail.com')->send(new CreateJObMail($mailData));
 
-        return to_route('provider.jobs.index');
+     return to_route('provider.jobs.index');
+
+       
     }
 
     /**
@@ -84,7 +102,16 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
-        //
+        $categories = Category::where('status', Category::STATUS_APPROVED)->get();
+        $skills = Skill::where('status', Skill::STATUS_ACTIVE)->select('id', 'title')->get();
+        return Inertia::render('Provider/Job/Show', [
+            'job' => $job,
+            'categories' => $categories,
+            'skills' => $skills,
+            'job_skills' => $job->skills,
+
+
+        ]);
     }
 
     /**
