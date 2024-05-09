@@ -40,7 +40,7 @@ const truncateabout = (about) => {
     <div v-for="user in users.data"
          class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <Link :href="route('talents.show', { user})">
-            <img :src="user.image" alt="" class="rounded-t-lg"/>
+            <img :src="'/storage/'+(user.image.replace('public',''))" alt="" class="rounded-t-lg"/>
         </Link>
         <div class="p-5">
             <Link :href="route('talents.show', { user})">

@@ -104,7 +104,7 @@ function applyJob() {
                 <!-- Modal content -->
                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                     <div class="p-4 md:p-5">
-                        <img :src="auth.user.image" width="150px">
+                        <img :src="'/storage/'+(auth.user.image.replace('public',''))" width="150px">
 
                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">{{ auth.user.first_name }}
                             {{ auth.user.last_name }}</h3>

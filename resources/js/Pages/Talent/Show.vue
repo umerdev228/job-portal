@@ -29,7 +29,7 @@ const props = defineProps({
            
            <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                <div class="duration-700 ease-in-out flex justify-center">
-                <img :src="user.image" alt="" class="rounded-t-lg"/>
+                <img :src="'/storage/'+(user.image.replace('public',''))" alt="" class="rounded-t-lg"/>
                </div>
            </div>
        </div>
