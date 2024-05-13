@@ -16,8 +16,9 @@ use Inertia\Inertia;
 |
 */
 
-// Route::get('/send-mail', [\App\Http\Controllers\EmailController::class, 'index']);
 
+
+Route::post('/notifications/mark-all-as-read', [App\Http\Controllers\NotificationController::class, 'markAllAsRead'])->name('notifications.markAllAsRead');
 
 
 Route::put('/admin/jobs/updateFeature/{id}', [\App\Http\Controllers\Admin\JobController::class, 'updateFeature'])->name('admin.jobs.updateFeature');

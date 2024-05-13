@@ -1,5 +1,8 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import { Inertia } from '@inertiajs/inertia';
+
 
 const props = defineProps({
     auth: {
@@ -7,7 +10,15 @@ const props = defineProps({
         default: {},
     },
 });
+const showPopup = ref(false);
 
+const togglePopup = () => {
+    showPopup.value = !showPopup.value;
+};
+const markAllNotificationsAsRead = () => {
+   
+    Inertia.post(route('notifications.markAllAsRead')) 
+};
 </script>
 
 <template>
@@ -33,16 +44,26 @@ const props = defineProps({
             
                 <div class="flex items-center">
                     <div class="relative">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z"/>
-                    </svg>
+    <svg v-on:click="togglePopup" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z"/>
+    </svg>
 
-                   <div class="px-1 bg-teal-500 rounded-full text-center text-white text-sm absolute -top-3 -end-2">
-                        3
-                        <div class="absolute top-0 start-0 rounded-full -z-10 animate-ping bg-teal-200 w-full h-full" ></div>
-                    </div>
-                  </div>
-                
+    <div class="px-1 bg-teal-500 rounded-full text-center text-white text-sm absolute -top-3 -end-2">
+        {{ $page.props.getNotifications.length }}
+        <div class="absolute top-0 start-0 rounded-full -z-10 animate-ping bg-teal-200 w-full h-full"></div>
+    </div>
+
+    <div v-if="showPopup" @click.away="showPopup = false" class="absolute right-0 bg-gray-800 border border-gray-300 z-50 mt-2 py-2 w-[340px] max-h-[350px] overflow-y-auto rounded-md shadow-xl scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-800">
+        <!-- Loop through notifications -->
+        <div v-for="(notification, index) in $page.props.getNotifications" :key="index" class="px-4 py-2 text-gray-800 dark:text-white  bg-gray-800 hover:bg-gray-700">
+            {{ notification.message }}
+        </div>
+        <button v-on:click="markAllNotificationsAsRead" class="relative flex h-[50px] w-40 items-center justify-center overflow-hidden bg-blue-600 text-white shadow-2xl transition-all before:absolute before:h-0 before:w-0 before:bg-green-600 before:duration-500 before:ease-out hover:shadow-orange-600 hover:before:h-56 hover:before:w-56 rounded-full">
+    <span class="relative z-10">Mark all as read</span>
+</button>
+
+    </div>
+</div>                
                     <div class="flex items-center ms-3">
                         
                         <div>
@@ -94,4 +115,26 @@ const props = defineProps({
 
 <style scoped>
 
+         
+        /* Designing for scroll-bar */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+     
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: gainsboro;
+            border-radius: 5px;
+        }
+     
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: gray;
+            border-radius: 5px;
+        }
+     
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
 </style>

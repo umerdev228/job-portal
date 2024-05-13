@@ -160,4 +160,26 @@ function applyJob() {
 }
 
 
+/* Designing for scroll-bar */
+::-webkit-scrollbar {
+            width: 8px;
+        }
+     
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: gainsboro;
+            border-radius: 8cqmax;
+        }
+     
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background:rgb(202, 194, 194);
+            border-radius: 8px;
+        }
+     
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
 </style>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -15,8 +16,14 @@
         @routes
         @vite(['resources/css/app.css','resources/js/app.js'])
         @inertiaHead
+        
     </head>
     <body class="font-sans antialiased">
+        {{-- <script>
+            window.getNotifications = @json(getNotifications());
+        </script> --}}
         @inertia
+
+        
     </body>
 </html>

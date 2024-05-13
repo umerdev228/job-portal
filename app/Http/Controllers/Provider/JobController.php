@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Mail;
 use App\mail\CreateJObMail;
+use App\Models\Notification;
+use App\Models\User;
 
 class JobController extends Controller
 {
@@ -53,7 +55,7 @@ class JobController extends Controller
     public function store(StoreJobRequest $request)
     {
         $user = Auth::user();
-      
+
         $job = Job::create([
             'user_id' => Auth::id(),
             'category_id' => $request->category_id,
@@ -78,23 +80,40 @@ class JobController extends Controller
                 ]);
             }
         }
-      
+        // Create a notification for the admin
+        $admin = User::where('role', 'admin')->first();
+        if ($admin) {
+            // Construct the message
+            $message = 'A new job has been created by ' . $user->first_name . ' ' . $user->last_name;
+
+            // Create the notification with the URL stored separately
+             Notification::create([
+                'sender_id' => auth()->id(),
+                'receiver_id' => $admin->id,
+                'type' => 'job_created',
+                'message' => $message,
+                'status' => 'unread',
+                'link' => url('/admin/jobs/' . $job->id), // Store the job URL in a separate column
+            ]);
+        }
+
+
+
+
         $jobUrl = url('/admin/jobs/' . $job->id);
-        $mailData=[
+        $mailData = [
             'title' => 'Create a jobs please check it and Approved !',
             'body' => 'A new job has been created by : ' . $user->first_name . ' ' . $user->last_name . '. Check it!',
-            'userFirstName' => $user->first_name, 
-            'userLastName' => $user->last_name, 
+            'userFirstName' => $user->first_name,
+            'userLastName' => $user->last_name,
             'jobTitle' => $job->title,
             'jobDescription' => $job->description,
             'jobUrl' => $jobUrl,
-           ];
-    
-            Mail::to('umardev82@gmail.com')->send(new CreateJObMail($mailData));
+        ];
 
-     return to_route('provider.jobs.index');
+        Mail::to('umardev82@gmail.com')->send(new CreateJObMail($mailData));
 
-       
+        return to_route('provider.jobs.index');
     }
 
     /**
@@ -144,12 +163,11 @@ class JobController extends Controller
             'description' => $request->description,
         ]);
         if (request()->file('image')) {
-            if($job->image)
-            {
+            if ($job->image) {
                 Storage::delete($job->image);
             }
             $imageName = time() . auth()->id() . '.' . request()->image->extension();
-            $path =request()->image->storeAs('public/jobs/' ,$imageName);
+            $path = request()->image->storeAs('public/jobs/', $imageName);
             $job->image = $path;
             $job->save();
         }
