@@ -3,10 +3,10 @@
 use App\Models\Notification;
 
 function getNotifications(){
-    $data = Notification::all(); // Retrieve all notifications
+    $data = Notification::all();
     return $data;
 
     // function getNotifications(){
-//     $data = Notification::where("status" , "unread")->get();
-//     return $data;
+    // $data = Notification::where("status" , "unread")->get();
+    // return $data;
 }

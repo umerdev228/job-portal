@@ -1,22 +1,29 @@
 <script setup>
 import {Link, router} from '@inertiajs/vue3';
-
 const props = defineProps({
     auth: {
         type: Object,
         default: {},
     },
+
+
 });
+
+
 </script>
 
 <template>
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <Link class="flex items-center space-x-3 rtl:space-x-reverse" :href="route('home')">
-                <img alt="Jobs-Hub" class="h-8" src="https://flowbite.com/docs/images/logo.svg"/>
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{{ auth.app_name }}</span>
+                <img alt="Jobs-Hub" class="h-10 "   src="/images/logo/logo.png" /> 
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Jobs-hub</span>
+                <!-- <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{{ auth.app_name }}</span> -->
             </Link>
+
+            
             <div v-if="auth.user" class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+
                 <button id="user-menu-button"
                         aria-expanded="false"
                         class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
