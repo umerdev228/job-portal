@@ -11,8 +11,12 @@ const props = defineProps({
     universities: {
         type: Array,
         default: [],
-    }
-   
+    },
+    notifications: {
+        type: Array,
+        default: [],
+    },
+
 });
 
 
@@ -21,7 +25,7 @@ const props = defineProps({
 
 <template>
     <Head title="Universities | Jobs Hub"/>
-    <AdminLayout :auth="auth">
+    <AdminLayout :auth="auth" :notifications="notifications">
         <div class="flex justify-between">
             <h1 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
                 Universities

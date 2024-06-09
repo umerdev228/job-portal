@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\Seeker;
 
 use App\Http\Controllers\Controller;
-use App\Models\Job;
 use App\Models\JobApply;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-
-use function Termwind\render;
 
 class JobApplyController extends Controller
 {
@@ -16,14 +13,14 @@ class JobApplyController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    { 
-        $jobapply =JobApply::with(['user','job'])->get();
+    {
+        $jobs = JobApply::with(['user', 'job'])->with(['user', 'job'])->paginate(6);
         // dd($jobapply);
-         return Inertia::render('Seeker/JobApply/Index',[
-            'jobapply'=>$jobapply
-         ]);
-         
-         
+        return Inertia::render('Seeker/JobApply/Index', [
+            'jobs' => $jobs
+        ]);
+
+
     }
 
     /**

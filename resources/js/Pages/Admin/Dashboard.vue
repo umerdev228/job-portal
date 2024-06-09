@@ -7,12 +7,17 @@ const props = defineProps({
         type: Object,
         default: {},
     },
+    notifications: {
+        type: Array,
+        default: [],
+    },
 });
+console.log(props.notifications)
 
 </script>
 
 <template>
-    <AdminLayout :auth="auth">
+    <AdminLayout :auth="auth" :notifications="notifications">
         <div class="grid grid-cols-3 gap-4 mb-4">
             <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
                 <p class="text-2xl text-gray-400 dark:text-gray-500">
@@ -144,19 +149,19 @@ const props = defineProps({
 ::-webkit-scrollbar {
             width: 8px;
         }
-     
+
         /* Track */
         ::-webkit-scrollbar-track {
             background: gainsboro;
             border-radius: 8cqmax;
         }
-     
+
         /* Handle */
         ::-webkit-scrollbar-thumb {
             background: gray;
             border-radius: 8px;
         }
-     
+
         /* Handle on hover */
         ::-webkit-scrollbar-thumb:hover {
             background: #555;

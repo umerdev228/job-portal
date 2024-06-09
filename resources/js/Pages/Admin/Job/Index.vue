@@ -19,7 +19,11 @@ const props = defineProps({
         type: Object,
         default: {},
     },
-  
+    notifications: {
+        type: Array,
+        default: [],
+    },
+
 });
 
 
@@ -42,15 +46,15 @@ const toggleFeature = (jobId) => {
 
 <template>
     <Head title="Jobs | Jobs Hub"/>
-    <AdminLayout :auth="auth">
+    <AdminLayout :auth="auth" :notifications="notifications">
         <div class="flex justify-between">
             <h1 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
                 Jobs
             </h1>
-            <Link :href="route('admin.jobs.create')"
-                  class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center h-10 p-2">
-                Create
-            </Link>
+<!--            <Link :href="route('admin.jobs.create')"-->
+<!--                  class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center h-10 p-2">-->
+<!--                Create-->
+<!--            </Link>-->
         </div>
 
         <nav aria-label="Breadcrumb" class="flex my-4">
@@ -86,9 +90,9 @@ const toggleFeature = (jobId) => {
                         <th class="px-6 py-3" scope="col">
                             Title
                         </th>
-                       
+
                         <th class="px-6 py-3" scope="col">
-                            Experience 
+                            Experience
                         </th>
                         <th class="px-6 py-3" scope="col">
                             Description
@@ -123,8 +127,8 @@ const toggleFeature = (jobId) => {
                                 <input :checked="job.is_feature"  type="checkbox" class="sr-only peer" value="1" v-on:change="toggleFeature(job.id)">
                                 <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                             </label>
-                        </td>                     
-            
+                        </td>
+
 
                         <td class="px-6 py-4 text-right flex">
                             <Link class="font-medium text-blue-600 dark:text-blue-500 hover:underline" :href="route('admin.jobs.show',job.id)">

@@ -87,7 +87,7 @@ class JobController extends Controller
             $message = 'A new job has been created by ' . $user->first_name . ' ' . $user->last_name;
 
             // Create the notification with the URL stored separately
-             Notification::create([
+             $notifications = Notification::create([
                 'sender_id' => auth()->id(),
                 'receiver_id' => $admin->id,
                 'type' => 'job_created',

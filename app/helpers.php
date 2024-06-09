@@ -2,9 +2,8 @@
 
 use App\Models\Notification;
 
-function getNotifications(){
-    $data = Notification::all();
-    return $data;
+function getNotifications() {
+    return Notification::where('receiver_id', \Illuminate\Support\Facades\Auth::id())->orderBy('id')->get()->toArray();
 
     // function getNotifications(){
     // $data = Notification::where("status" , "unread")->get();

@@ -16,12 +16,16 @@ const props = defineProps({
         type: Object,
         default: {},
     },
+    notifications: {
+        type: Array,
+        default: [],
+    },
 });
 
 const form = useForm({
     key: props.meta.key,
     value: props.meta.value,
-    
+
 
 });
 
@@ -31,7 +35,7 @@ const form = useForm({
 
 <template>
     <Head title="Edit setting | Jobs Hub"/>
-    <AdminLayout :auth="auth">
+    <AdminLayout :auth="auth" :notifications="notifications">
         <h1 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
             Update setting
         </h1>
@@ -46,7 +50,7 @@ const form = useForm({
                         Dashboard
                     </Link>
                 </li>
-             
+
                 <li>
                     <div class="flex items-center">
                         <svg aria-hidden="true" class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1"

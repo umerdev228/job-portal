@@ -38,6 +38,10 @@ const props = defineProps({
         required: true,
         default: [],
     },
+    notifications: {
+        type: Array,
+        default: [],
+    },
 });
 
 let search = ref(props.filters);
@@ -91,38 +95,26 @@ const truncateDescription = (description) => {
     <FrontendLayout :auth="auth">
 
         <form class="mx-auto" enctype="multipart/form-data">
-            <div class="flex">
-                <label class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white" for="search-dropdown">Your
-                    Email</label>
-                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="countries">Select an
-                    option</label>
+            <div class="flex justify-around">
                 <select id="countries" v-model="chosen_category"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        class="h-[50px] bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mx-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option selected value="0">Choose a category</option>
                     <option v-for="category in categories" :value="category.id">{{ category.title }}</option>
                 </select>
 
-                <div class="relative ">
-                    <input v-model="search"
-                           class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                           placeholder="Search Jobs Title & Skill..."
-                           required type="text"/>
-                </div>
-                <div class="relative">
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose a Skill</label>
-                    <multiselect v-model="chosen_skills" :clear-on-select="false" :close-on-select="false"
-                                 :options="skills" :preselect-first="false"
-                                 :preserve-search="true" label="title" multiple placeholder="Choose Skills"
-                                 track-by="id">
-                        <template slot="selection" slot-scope="{ values, search, isOpen }">
-                            <span v-if="skills.length" v-show="!isOpen" class="multiselect__single">{{ skills.length }} options selected</span>
-                        </template>
-                    </multiselect>
-                </div>
-
+                <input v-model="search"
+                       class="h-[50px] block w-[50%] p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       placeholder="Search Jobs Title & Skill..."
+                       required type="text"/>
+                <multiselect class="w-[25%] ml-2" v-model="chosen_skills" :clear-on-select="false" :close-on-select="false"
+                             :options="skills" :preselect-first="false"
+                             :preserve-search="true" label="title" multiple placeholder="Choose Skills"
+                             track-by="id">
+                    <template slot="selection" slot-scope="{ values, search, isOpen }">
+                        <span v-if="skills.length" v-show="!isOpen" class="multiselect__single">{{ skills.length }} options selected</span>
+                    </template>
+                </multiselect>
             </div>
-
-
         </form>
         <div
             class="flex justify-between border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 my-4 p-4">
@@ -138,13 +130,14 @@ const truncateDescription = (description) => {
                  class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <Link :href="route('jobs.show', job.id)">
                     <div class="image-container">
-                        <img :src="'/storage/'+ (job.image.replace('public/','')) " alt="" class="rounded-t-lg object-cover"/>
+                        <img :src="'/storage'+ (job.image.replace('public/','')) " alt=""
+                             class="rounded-t-lg object-cover"/>
                     </div>
                 </Link>
                 <div class="p-5">
                     <Link :href="route('jobs.show', job.id)">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            {{job.title}}</h5>
+                            {{ job.title }}</h5>
                     </Link>
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                         {{ truncateDescription(job.description) }}</p>
@@ -169,7 +162,7 @@ const truncateDescription = (description) => {
 
         </div>
 
-         <!-- Apply Pagination  -->
+        <!-- Apply Pagination  -->
         <nav aria-label="Page navigation example" class="mt-6">
             <ul class="inline-flex -space-x-px text-sm">
                 <li>
@@ -215,23 +208,28 @@ const truncateDescription = (description) => {
 
 /* Designing for scroll-bar */
 ::-webkit-scrollbar {
-            width: 8px;
-        }
-     
-        /* Track */
-        ::-webkit-scrollbar-track {
-            background: gainsboro;
-            border-radius: 8cqmax;
-        }
-     
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-            background:rgb(202, 194, 194);
-            border-radius: 8px;
-        }
-     
-        /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: gainsboro;
+    border-radius: 8cqmax;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(202, 194, 194);
+    border-radius: 8px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.multiselect__tags {
+    background: #374151 !important;
+    height: 50px;
+}
 </style>

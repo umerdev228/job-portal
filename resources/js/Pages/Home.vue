@@ -166,13 +166,13 @@ function filterJob(category_id) {
                 class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <Link :href="route('jobs.show', job.id)">
                     <div class="image-container">
-                       
-                        <img alt="" class="rounded-t-lg object-cover" :src="'/storage/'  + (job.image.replace('public/' , ''))">
+
+                        <img alt="" class="rounded-t-lg object-cover" :src="'/storage'  + (job.image.replace('public/' , ''))">
 
                     </div>
                 </Link>
                 <div class="p-5">
-                    
+
                     <Link :href="route('jobs.show', job.id)">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ job.title }}</h5>
                     </Link>
@@ -220,19 +220,19 @@ function filterJob(category_id) {
  ::-webkit-scrollbar {
             width: 8px;
         }
-     
+
         /* Track */
         ::-webkit-scrollbar-track {
             background: gainsboro;
             border-radius: 8cqmax;
         }
-     
+
         /* Handle */
         ::-webkit-scrollbar-thumb {
             background: rgb(202, 194, 194);
             border-radius: 8px;
         }
-     
+
         /* Handle on hover */
         ::-webkit-scrollbar-thumb:hover {
             background: #555;

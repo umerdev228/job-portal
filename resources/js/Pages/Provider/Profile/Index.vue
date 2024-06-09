@@ -28,6 +28,10 @@ const props = defineProps({
         type: Array,
         default: [],
     },
+    notifications: {
+        type: Array,
+        default: [],
+    },
 });
 
 let activeMenu = ref('Profile');
@@ -36,7 +40,7 @@ let activeMenu = ref('Profile');
 
 <template>
     <Head title="Update Profile | Jobs Hub"/>
-    <ProviderLayout :auth="auth">
+    <ProviderLayout :auth="auth" :notifications="notifications">
         <h1 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
             Profile
         </h1>

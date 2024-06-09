@@ -11,9 +11,13 @@ const props = defineProps({
     jobs: {
         type: Array,
         default: [],
-    }
+    },
+    notifications: {
+        type: Array,
+        default: [],
+    },
 });
- 
+
 const truncateDescription = (description) => {
     const words = description.split(' ');
     if (words.length > 8) {
@@ -27,7 +31,7 @@ const truncateDescription = (description) => {
 
 <template>
     <Head title="Jobs | Jobs Hub"/>
-    <ProviderLayout :auth="auth">
+    <ProviderLayout :auth="auth" :notifications="notifications">
         <div class="flex justify-between">
             <h1 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
                 Jobs
@@ -72,7 +76,7 @@ const truncateDescription = (description) => {
                             Title
                         </th>
                         <th class="px-6 py-3" scope="col">
-                            Experience 
+                            Experience
                         </th>
                         <th class="px-6 py-3" scope="col">
                             Description

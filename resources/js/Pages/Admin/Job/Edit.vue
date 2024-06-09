@@ -9,6 +9,10 @@ const props = defineProps({
         type: Object,
         default: {},
     },
+    notifications: {
+        type: Array,
+        default: [],
+    },
     job: {
         type: Object,
         default: {},
@@ -45,7 +49,7 @@ const form = useForm({
 
 <template>
     <Head title="Update Job | Jobs Hub"/>
-    <AdminLayout :auth="auth">
+    <AdminLayout :auth="auth" :notifications="notifications">
         <h1 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
            Edit Jobs
         </h1>

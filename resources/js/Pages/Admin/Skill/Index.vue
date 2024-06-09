@@ -11,7 +11,11 @@ const props = defineProps({
     skills: {
         type: Object,
         default: {},
-    }
+    },
+    notifications: {
+        type: Array,
+        default: [],
+    },
 });
 const toggleStatus = (skillId) => {
     Inertia.put(route('admin.skills.updateStatus', skillId));
@@ -20,7 +24,7 @@ const toggleStatus = (skillId) => {
 
 <template>
     <Head title="Skills | Jobs Hub"/>
-    <AdminLayout :auth="auth">
+    <AdminLayout :auth="auth" :notifications="notifications">
         <div class="flex justify-between">
             <h1 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
                 Skills
@@ -116,7 +120,7 @@ const toggleStatus = (skillId) => {
                     </tbody>
                 </table>
             </div>
-            
+
                 <!-- Apply Pagination  -->
             <nav aria-label="Page navigation example" class="mt-6">
             <ul class="inline-flex -space-x-px text-sm">

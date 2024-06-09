@@ -16,6 +16,10 @@ const props = defineProps({
         required: true,
         default: false,
     },
+    notifications: {
+        type: Array,
+        default: [],
+    },
 });
 
 
@@ -39,7 +43,7 @@ function applyJob() {
             </h1>
         </div>
         <!-- <div id="gallery" class="relative w-full">
-            
+
             <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                 <div class="duration-700 ease-in-out flex justify-center">
                     <img :src="job.image" alt="">
@@ -48,10 +52,10 @@ function applyJob() {
         </div> -->
         <div id="gallery" class="relative w-full flex justify-center">
     <div class="image-container">
-        <img :src="'/storage/'+(job.image.replace('public',''))" alt="">
+        <img :src="'/storage'+(job.image.replace('public',''))" alt="">
     </div>
 </div>
-       
+
         <Link v-if="!auth.user" :href="route('login')"
               class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Login to Apply Now
@@ -104,7 +108,7 @@ function applyJob() {
                 <!-- Modal content -->
                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                     <div class="p-4 md:p-5">
-                        <img :src="'/storage/'+(auth.user.image.replace('public',''))" width="150px">
+                        <img :src="'/storage'+(auth.user.image.replace('public',''))" width="150px">
 
                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">{{ auth.user.first_name }}
                             {{ auth.user.last_name }}</h3>
@@ -164,19 +168,19 @@ function applyJob() {
 ::-webkit-scrollbar {
             width: 8px;
         }
-     
+
         /* Track */
         ::-webkit-scrollbar-track {
             background: gainsboro;
             border-radius: 8cqmax;
         }
-     
+
         /* Handle */
         ::-webkit-scrollbar-thumb {
             background:rgb(202, 194, 194);
             border-radius: 8px;
         }
-     
+
         /* Handle on hover */
         ::-webkit-scrollbar-thumb:hover {
             background: #555;

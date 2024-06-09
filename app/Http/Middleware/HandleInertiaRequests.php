@@ -37,7 +37,7 @@ class HandleInertiaRequests extends Middleware
                 'applied_jobs' => auth()->user() ? JobApply::where('user_id', auth()->id())->get()->pluck('job_id') : [],
                 'app_name' => config('app.name')
             ],
-            'getNotifications' => getNotifications(),
+            'notifications' => getNotifications(),
         ];
     }
 }

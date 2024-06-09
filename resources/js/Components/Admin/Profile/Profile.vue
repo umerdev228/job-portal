@@ -10,6 +10,10 @@ const props = defineProps({
         type: Object,
         default: {},
     },
+    notifications: {
+        type: Array,
+        default: [],
+    },
 });
 
 

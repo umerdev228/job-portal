@@ -12,6 +12,10 @@ const props = defineProps({
         type: Object,
         default: {},
     },
+    notifications: {
+        type: Array,
+        default: [],
+    },
 });
 
 const passwordInput = ref(null);

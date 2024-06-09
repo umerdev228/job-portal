@@ -11,6 +11,10 @@ const props = defineProps({
         type: Array,
         required: true,
     },
+    notifications: {
+        type: Array,
+        default: [],
+    },
 });
 
 </script>
@@ -26,10 +30,10 @@ const props = defineProps({
         </div>
 
          <div id="gallery" class="relative w-full">
-           
+
            <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                <div class="duration-700 ease-in-out flex justify-center">
-                <img :src="'/storage/'+(user.image.replace('public',''))" alt="" class="rounded-t-lg"/>
+                <img :src="'/storage'+(user.image.replace('public',''))" alt="" class="rounded-t-lg"/>
                </div>
            </div>
        </div>
@@ -44,8 +48,8 @@ const props = defineProps({
        <p class="mb-3 text-black-500 dark:text-black-400">
         {{ user.seeker.about }}
        </p>
-       
-      
+
+
 
     </FrontendLayout>
 </template>
@@ -55,19 +59,19 @@ const props = defineProps({
 ::-webkit-scrollbar {
             width: 8px;
         }
-     
+
         /* Track */
         ::-webkit-scrollbar-track {
             background: gainsboro;
             border-radius: 8cqmax;
         }
-     
+
         /* Handle */
         ::-webkit-scrollbar-thumb {
             background:rgb(202, 194, 194);
             border-radius: 8px;
         }
-     
+
         /* Handle on hover */
         ::-webkit-scrollbar-thumb:hover {
             background: #555;

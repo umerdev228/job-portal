@@ -1,31 +1,36 @@
 <script setup>
+import {ref} from "vue";
+import { router } from '@inertiajs/vue3'
 import { Link } from "@inertiajs/vue3";
-import { ref } from "vue";
-import { Inertia } from "@inertiajs/inertia";
 
 const props = defineProps({
     auth: {
         type: Object,
         default: {},
     },
+    notifications: {
+        type: Array,
+        default: []
+    },
+
 });
 const showPopup = ref(false);
+console.log(props.notifications)
 
 const togglePopup = () => {
     showPopup.value = !showPopup.value;
     if (showPopup.value) {
-        Inertia.post(route("admin.notifications.markAllAsRead"));
+        router.post(route("admin.notifications.markAllAsRead"));
     }
 };
 const viewNotificationDetail = (notificationId) => {
-    Inertia.get(route('admin.notification.show', notificationId));
+    console.log(notificationId)
+    router.get(route('admin.notification.show', notificationId));
 };
 </script>
 
 <template>
-    <nav
-        class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700"
-    >
+    <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start rtl:justify-end">
@@ -51,15 +56,15 @@ const viewNotificationDetail = (notificationId) => {
                             ></path>
                         </svg>
                     </button>
-                    <a class="flex ms-2 md:me-24" :href="route('home')">
+                    <a :href="route('home')" class="flex ms-2 md:me-24">
                         <img
                             alt=" Logo"
                             class="h-10 me-3"
                             src="/images/logo/logo.png"
                         />
-                         <span
+                        <span
                             class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white"
-                            >Jobs-hub</span
+                        >Jobs-hub</span
                         >
                         <!-- <span
                             class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white"
@@ -71,29 +76,29 @@ const viewNotificationDetail = (notificationId) => {
                 <div class="flex items-center">
                     <div class="relative">
                         <svg
-                            v-on:click="togglePopup"
-                            class="w-6 h-6 text-gray-800 dark:text-white cursor-pointer"
                             aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
+                            class="w-6 h-6 text-gray-800 dark:text-white cursor-pointer"
                             fill="none"
+                            height="24"
                             viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                            v-on:click="togglePopup"
                         >
                             <path
+                                d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z"
                                 stroke="currentColor"
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                                 stroke-width="2"
-                                d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z"
                             />
                         </svg>
 
                         <div
-                            class="px-1 bg-teal-500 rounded-full text-center text-white text-sm absolute -top-3 -end-2"
+                            class="px-1 bg-teal-500 rounded-full text-center text-white text-xs absolute -top-3 -end-2"
                         >
                             {{
-                                $page.props.getNotifications.filter(
+                                notifications.filter(
                                     (notification) =>
                                         notification.status === "unread"
                                 ).length
@@ -105,7 +110,6 @@ const viewNotificationDetail = (notificationId) => {
 
                         <div
                             v-if="showPopup"
-                            @click.away="showPopup = false"
                             class="absolute right-0 bg-gray-800 border border-gray-100 z-50 mt-2 py-2 w-[400px] max-h-[400px] overflow-y-auto rounded-md shadow-xl scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-gray-700 scrollbar-track-gray-300"
                         >
                             <!-- Notifications Heading -->
@@ -113,35 +117,33 @@ const viewNotificationDetail = (notificationId) => {
                                 Notifications
                             </div>
                             <button
-                                role="button"
                                 aria-label="close modal"
                                 class="text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 rounded-md cursor-pointer absolute top-2 right-2"
-                                @click="notificationHandler(false)"
+                                role="button"
                             >
                                 <svg
-                                    xmlns="http://www.w3.org/2000/svg"
                                     class="w-6 h-6"
                                     fill="none"
-                                    viewBox="0 0 24 24"
                                     stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
                                 >
                                     <path
+                                        d="M6 18L18 6M6 6l12 12"
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
                                         stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12"
                                     />
                                 </svg>
                             </button>
-                            <hr />
+                            <hr/>
 
                             <!-- Loop through notifications -->
                             <div
-                                v-for="(notification, index) in $page.props
-                                    .getNotifications"
+                                v-for="(notification, index) in notifications"
                                 :key="index"
-                                v-on:click="viewNotificationDetail(notification.id)"
                                 class="flex items-center px-4 py-2 text-gray-800 dark:text-white bg-gray-800 hover:bg-gray-700 border-b border-white border-opacity-50 cursor-pointer"
+                                v-on:click="viewNotificationDetail(notification.id)"
                             >
                                 <span
                                     v-if="notification.status === 'read'"
@@ -161,12 +163,12 @@ const viewNotificationDetail = (notificationId) => {
                             >
                                 <span class="sr-only">Open user menu</span>
                                 <img
-                                    alt="user photo"
-                                    class="w-8 h-8 rounded-full"
                                     :src="
                                         '/storage/' +
                                         auth.user.image.replace('public', '')
                                     "
+                                    alt="user photo"
+                                    class="w-8 h-8 rounded-full"
                                 />
                             </button>
                         </div>
@@ -191,27 +193,30 @@ const viewNotificationDetail = (notificationId) => {
                             <ul class="py-1" role="none">
                                 <li>
                                     <Link
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         :href="route('admin.dashboard')"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem"
-                                        >Dashboard</Link
+                                    >Dashboard
+                                    </Link
                                     >
                                 </li>
                                 <li>
                                     <Link
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         :href="route('admin.profile.index')"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem"
-                                        >Profile</Link
+                                    >Profile
+                                    </Link
                                     >
                                 </li>
                                 <li>
                                     <Link
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         :href="route('logout')"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         method="post"
                                         role="menuitem"
-                                        >Logout</Link
+                                    >Logout
+                                    </Link
                                     >
                                 </li>
                             </ul>

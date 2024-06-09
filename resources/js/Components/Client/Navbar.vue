@@ -1,12 +1,11 @@
 <script setup>
-import {Link, router} from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
+
 const props = defineProps({
     auth: {
         type: Object,
         default: {},
     },
-
-
 });
 
 
@@ -15,13 +14,13 @@ const props = defineProps({
 <template>
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <Link class="flex items-center space-x-3 rtl:space-x-reverse" :href="route('home')">
-                <img alt="Jobs-Hub" class="h-10 "   src="/images/logo/logo.png" /> 
+            <Link :href="route('home')" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img alt="Jobs-Hub" class="h-10 " src="/images/logo/logo.png"/>
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Jobs-hub</span>
                 <!-- <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{{ auth.app_name }}</span> -->
             </Link>
 
-            
+
             <div v-if="auth.user" class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
 
                 <button id="user-menu-button"
@@ -30,9 +29,9 @@ const props = defineProps({
                         data-dropdown-placement="bottom" data-dropdown-toggle="user-dropdown"
                         type="button">
                     <span class="sr-only">Open user menu</span>
-                   <img alt="user photo"
-                                     class="w-8 h-8 rounded-full"
-                                     :src="'/storage/'+(auth.user.image.replace('public',''))">
+                    <img :src="'/storage'+(auth.user.image.replace('public',''))"
+                         alt="user photo"
+                         class="w-8 h-8 rounded-full">
                 </button>
                 <!-- Dropdown menu -->
                 <div
@@ -62,7 +61,8 @@ const props = defineProps({
                         <li>
                             <Link
                                 :href="route('logout')"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" method="post">
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                method="post">
                                 Sign out
                             </Link>
                         </li>

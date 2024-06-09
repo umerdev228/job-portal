@@ -11,8 +11,12 @@ const props = defineProps({
         type: Array,
         required: true,
     },
-  
+
     job_skills: {
+        type: Array,
+        default: [],
+    },
+    notifications: {
         type: Array,
         default: [],
     },
@@ -23,7 +27,7 @@ const props = defineProps({
 
 <template>
     <Head :title="job.title"/>
-    <ProviderLayout :auth="auth">
+    <ProviderLayout :auth="auth" :notifications="notifications">
         <div class="flex justify-between border-2 border-white-200 border-dashed rounded-lg dark:border-gray-700 my-4 p-4">
             <h1 class="text-3xl font-extrabold leading-none tracking-tight text-white md:text-4xl lg:text-5xl">
                Job
@@ -33,11 +37,11 @@ const props = defineProps({
             <!-- Carousel wrapper -->
             <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                 <div class="duration-700 ease-in-out flex justify-center">
-                    <img :src="'/storage/' +(job.image.replace('public',''))" alt="">
+                    <img :src="'/storage' +(job.image.replace('public',''))" alt="">
                 </div>
             </div>
         </div>
-        
+
         <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl">
            {{ job.title }}
         </h1>
